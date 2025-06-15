@@ -1,57 +1,114 @@
 <script>
-  // 必要に応じてロジックを追加できます
+  // onMount は、コンポーネントがブラウザにマウントされた後にコードを実行するために使用します。
+  import { onMount } from 'svelte';
+
+  // fetchDMMItems はコメントアウトされたまま、ここではダミーデータを使用します。
+  // DMM API のエラーが解決したら、この行のコメントアウトを外し、onMount 内のダミーデータを削除してください。
+  // import { fetchDMMItems } from '$lib/dmm'; 
+
+  // 商品を格納するリアクティブ変数。初期値としてダミーデータを設定します。
+  let items = [
+    {
+      affiliateURL: 'https://book.dmm.com/product/6136313/b950xshes86254/', // 実際のDMMの商品URLに置き換える
+      image: { small: 'https://book.dmm.com/product/6136313/b950xshes86254/?text=SLAMDUNK1' },
+      title: '不朽のヒット作！感動の物語をあなたに',
+      price: '627円 (税込)'
+    },
+    {
+      affiliateURL: 'https://example.com/product-b',
+      image: { small: 'https://placehold.co/300x200/33FF57/FFFFFF?text=商品B' },
+      title: '人気急上昇中！特別な体験が待っている',
+      price: '2,980円 (税込)'
+    },
+    {
+      affiliateURL: 'https://example.com/product-c',
+      image: { small: 'https://placehold.co/300x200/3366FF/FFFFFF?text=商品C' }, // ここを修正しました
+      title: '心を揺さぶる傑作！今すぐチェック',
+      price: '3,500円 (税込)'
+    },
+    {
+      affiliateURL: 'https://example.com/product-d',
+      image: { small: 'https://placehold.co/300x200/FFFF33/000000?text=商品D' },
+      title: 'ファン必見のアイテム！限定品を見逃すな',
+      price: '4,200円 (税込)'
+    },
+    {
+      affiliateURL: 'https://placehold.co/300x200/A0A0A0/FFFFFF?text=商品E', // ここにコンマを追加し、次の行でimageプロパティを追加
+      image: { small: 'https://placehold.co/300x200/A0A0A0/FFFFFF?text=商品E' }, // この行を追加
+      title: '新しい趣味を見つけよう！入門に最適',
+      price: '980円 (税込)'
+    },
+    {
+      affiliateURL: 'https://placehold.co/300x200/6A0DAD/FFFFFF?text=商品F',
+      image: { small: 'https://placehold.co/300x200/6A0DAD/FFFFFF?text=商品F' },
+      title: '週末を充実させる！楽しいエンターテイメント',
+      price: '1,200円 (税込)'
+    }
+  ];
+
+  // コンポーネントがマウントされた時に実行される非同期関数
+  onMount(async () => {
+    // DMM API のエラーが解決し、実際のデータを取得したい場合は、以下のコメントアウトを解除してください。
+    // items = await fetchDMMItems("おすすめ", 12);
+  });
 </script>
 
-<svelte:head>
-  <title>DMMアフィリエイト実践サイト</title>
-  <meta name="description" content="DMMアフィリエイトを活用した商品紹介・レビューサイトです。" />
-</svelte:head>
+<!-- ページのメインコンテナ -->
+<div class="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8 font-inter">
+  <!-- サイトのタイトル -->
+  <h1 class="text-4xl font-extrabold text-center my-8 text-gray-800 tracking-tight">
+    DMM お買い得商品セレクション
+  </h1>
 
-<main class="container" style="max-width: 800px; margin: 0 auto; padding: 2rem;">
-  <h1>DMMアフィリエイト実践サイト</h1>
+  <!-- 商品一覧のグリッドコンテナ -->
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+    <!-- 各商品をループで表示 -->
+    {#each items as item (item.affiliateURL)} <!-- key として affiliateURL を使用 -->
+      <!-- 個々の商品カードへのリンク -->
+      <a href={item.affiliateURL} target="_blank" rel="noopener noreferrer"
+         class="group block bg-white border border-gray-200 rounded-xl shadow-lg 
+                overflow-hidden transition-all duration-300 transform 
+                hover:-translate-y-2 hover:shadow-2xl 
+                focus:outline-none focus:ring-4 focus:ring-blue-300"
+      >
+        <!-- 商品画像 -->
+        <div class="w-full h-48 sm:h-56 overflow-hidden">
+          <img 
+            src={item.image.small} 
+            alt={item.title} 
+            class="w-full h-full object-cover object-center 
+                   group-hover:scale-105 transition-transform duration-300 ease-in-out" 
+            on:error={e => { e.currentTarget.onerror = null; e.currentTarget.src = 'https://placehold.co/300x200/E0E0E0/808080?text=画像なし'; }}
+          />
+        </div>
+        
+        <!-- 商品情報 -->
+        <div class="p-4">
+          <!-- 商品タイトル -->
+          <h2 class="text-base sm:text-lg font-semibold text-gray-900 mb-2 leading-tight line-clamp-2">
+            {item.title}
+          </h2>
+          <!-- 価格情報 (存在する場合のみ表示) -->
+          {#if item.price}
+            <p class="text-lg sm:text-xl font-bold text-blue-700">
+              {item.price}
+            </p>
+          {/if}
+        </div>
+      </a>
+    {/each}
+  </div>
 
-  <section>
-    <h2>このサイトについて</h2>
-    <p>
-      当サイトは、DMMアフィリエイトを活用して商品やサービスを紹介することを目的とした実践サイトです。
-      実際の運用を想定して構築しており、今後も継続的にコンテンツを追加していく予定です。
-    </p>
-  </section>
+  <!-- フッターやその他の情報など、必要に応じて追加 -->
+  <footer class="text-center text-gray-600 mt-12 text-sm">
+    <p>&copy; 2025 DMMアフィリエイト商品紹介サイト. All rights reserved.</p>
+  </footer>
+</div>
 
-  <section>
-    <h2>運営者情報</h2>
-    <p>
-      名前：サイト管理者<br>
-      連絡先：sample@example.com
-    </p>
-  </section>
-
-  <section>
-    <h2>サンプル記事</h2>
-    <article>
-      <h3>DMM動画の魅力とは？</h3>
-      <p>
-        DMM動画は多彩なジャンルと豊富なコンテンツを取り揃えたストリーミングサービスです。
-        初めての方でも簡単に利用でき、特にアニメ・映画ファンにはおすすめです。
-      </p>
-      <p>
-        👉 <a href="#">DMM動画の詳細を見る（仮リンク）</a>
-      </p>
-    </article>
-  </section>
-
-  <section>
-    <h2>プライバシーポリシー</h2>
-    <p>
-      当サイトでは、DMMアフィリエイトのリンクを使用しており、アフィリエイトリンクから収益を得ることがあります。
-      ユーザーのプライバシーには十分配慮し、個人情報の取得・管理には適切な措置を講じています。
-    </p>
-  </section>
-
-  <section>
-    <h2>お問い合わせ</h2>
-    <p>
-      ご意見・ご質問などがありましたら、上記の連絡先までメールにてご連絡ください。
-    </p>
-  </section>
-</main>
+<style lang="postcss">
+  /*
+    Tailwind CSS を利用しているため、ここに直接的な CSS はあまり書きません。
+    もし特定のコンポーネントにのみ適用したいカスタムスタイルがあればここに記述します。
+    ここでは、Tailwind CSS の @apply ディレクティブを使って既存のスタイルを拡張することも可能です。
+  */
+</style>
