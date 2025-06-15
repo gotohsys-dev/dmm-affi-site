@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   // onMount は、コンポーネントがブラウザにマウントされた後にコードを実行するために使用します。
   import { onMount } from 'svelte';
 
@@ -6,17 +6,8 @@
   // DMM API のエラーが解決したら、この行のコメントアウトを外し、onMount 内のダミーデータを削除してください。
   // import { fetchDMMItems } from '$lib/dmm'; 
 
-  // 商品データの型定義 (TypeScript を使用している場合)
-  // DMM API の応答構造に合わせて調整してください。
-  interface Product {
-    affiliateURL: string;
-    image: { small: string };
-    title: string;
-    price?: string; // 価格はオプション（DMM APIのレスポンスによる）
-  }
-
   // 商品を格納するリアクティブ変数。初期値としてダミーデータを設定します。
-  let items: Product[] = [
+  let items = [
     {
       affiliateURL: 'https://example.com/product-a', // 実際のDMMの商品URLに置き換える
       image: { small: 'https://placehold.co/300x200/FF5733/FFFFFF?text=商品A' },
@@ -31,7 +22,7 @@
     },
     {
       affiliateURL: 'https://example.com/product-c',
-      image: { small: 'https://placehold.co/300x200/3366FF/FFFFFF?text=商品C' },
+      image: { small: 'https://placehold.co/300x200/3366FF/FFFFFF?text=商品C' }, // ここを修正しました
       title: '心を揺さぶる傑作！今すぐチェック',
       price: '3,500円 (税込)'
     },
@@ -42,8 +33,8 @@
       price: '4,200円 (税込)'
     },
     {
-      affiliateURL: 'https://example.com/product-e',
-      image: { small: 'https://placehold.co/300x200/A0A0A0/FFFFFF?text=商品E' },
+      affiliateURL: 'https://placehold.co/300x200/A0A0A0/FFFFFF?text=商品E', // ここにコンマを追加し、次の行でimageプロパティを追加
+      image: { small: 'https://placehold.co/300x200/A0A0A0/FFFFFF?text=商品E' }, // この行を追加
       title: '新しい趣味を見つけよう！入門に最適',
       price: '980円 (税込)'
     },
@@ -87,7 +78,7 @@
             alt={item.title} 
             class="w-full h-full object-cover object-center 
                    group-hover:scale-105 transition-transform duration-300 ease-in-out" 
-            onerror="this.onerror=null;this.src='https://placehold.co/300x200/E0E0E0/808080?text=画像なし';"
+            on:error={e => { e.currentTarget.onerror = null; e.currentTarget.src = 'https://placehold.co/300x200/E0E0E0/808080?text=画像なし'; }}
           />
         </div>
         
