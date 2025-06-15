@@ -15,10 +15,10 @@
       price: '627円 (税込)'
     },
     {
-      affiliateURL: 'https://example.com/product-b',
-      image: { small: 'https://placehold.co/300x200/33FF57/FFFFFF?text=商品B' },
+      affiliateURL: 'https://book.dmm.com/product/4321208/b900ckds36633/',
+      image: { small: 'https://placehold.co/300x200/33FF57/FFFFFF?text=脇役に転生したはずが、いつの間にか伝説の錬金術師になってた 〜仲間たちが英雄でも俺は支援職なんだが〜' },
       title: '人気急上昇中！特別な体験が待っている',
-      price: '2,980円 (税込)'
+      price: '792円 (税込)'
     },
     {
       affiliateURL: 'https://example.com/product-c',
