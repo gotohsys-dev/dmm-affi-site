@@ -10,7 +10,7 @@
   let items = [
     {
       affiliateURL: 'https://book.dmm.com/product/6136313/b950xshes86254/', // 実際のDMMの商品URLに置き換える
-      image: { small: 'https://book.dmm.com/product/6136313/b950xshes86254/?text=SLAM DUNK 1' },
+      image: { small: 'https://book.dmm.com/product/6136313/b950xshes86254/?text=SLAMDUNK1' },
       title: '不朽のヒット作！感動の物語をあなたに',
       price: '627円 (税込)'
     },
