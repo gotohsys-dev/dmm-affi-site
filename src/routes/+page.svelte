@@ -69,7 +69,7 @@
 <div class="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8 font-inter">
   <!-- サイトのタイトル -->
   <h1 class="text-4xl font-extrabold text-center my-8 text-gray-800 tracking-tight">
-    DMM お買い得商品セレクション
+    DMM お買い得商品セレクション(仮)
   </h1>
 
   <!-- 商品一覧のグリッドコンテナ -->
