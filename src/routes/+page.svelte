@@ -6,41 +6,53 @@
   // DMM API のエラーが解決したら、この行のコメントアウトを外し、onMount 内のダミーデータを削除してください。
   // import { fetchDMMItems } from '$lib/dmm'; 
 
+  // placehold.co のURLに日本語テキストを安全に含めるための関数
+  function getPlaceholderImageUrl(width, height, bgColor, textColor, text) {
+    const encodedText = encodeURIComponent(text); // ここで日本語をURLエンコード
+    return `https://placehold.co/${width}x${height}/${bgColor}/${textColor}?text=${encodedText}`;
+  }
+
   // 商品を格納するリアクティブ変数。初期値としてダミーデータを設定します。
   let items = [
     {
       affiliateURL: 'https://book.dmm.com/product/6136313/b950xshes86254/', // 実際のDMMの商品URLに置き換える
-      image: { small: 'https://book.dmm.com/product/6136313/b950xshes86254/?text=SLAMDUNK1' },
+      // getPlaceholderImageUrl 関数を使用して画像を生成
+      image: { small: getPlaceholderImageUrl(300, 200, 'FF5733', 'FFFFFF', 'SLAM DUNK 1') }, 
       title: '不朽のヒット作！感動の物語をあなたに',
       price: '627円 (税込)'
     },
     {
       affiliateURL: 'https://book.dmm.com/product/4321208/b900ckds36633/',
-      image: { small: 'https://placehold.co/300x200/33FF57/FFFFFF?text=脇役に転生したはずが、いつの間にか伝説の錬金術師になってた 〜仲間たちが英雄でも俺は支援職なんだが〜' },
-      title: '人気急上昇中！特別な体験が待っている',
+      // getPlaceholderImageUrl 関数を使用して画像を生成
+      image: { small: getPlaceholderImageUrl(300, 200, '33FF57', 'FFFFFF', '脇役に転生したはずが、いつの間にか伝説の錬金術師になってた 〜仲間たちが英雄でも俺は支援職なんだが〜（') },
+      title: '人気急上昇中！本日ランキングトップの作品！',
       price: '792円 (税込)'
     },
     {
       affiliateURL: 'https://example.com/product-c',
-      image: { small: 'https://placehold.co/300x200/3366FF/FFFFFF?text=商品C' }, // ここを修正しました
+      // getPlaceholderImageUrl 関数を使用して画像を生成
+      image: { small: getPlaceholderImageUrl(300, 200, '3366FF', 'FFFFFF', '商品C') }, 
       title: '心を揺さぶる傑作！今すぐチェック',
       price: '3,500円 (税込)'
     },
     {
       affiliateURL: 'https://example.com/product-d',
-      image: { small: 'https://placehold.co/300x200/FFFF33/000000?text=商品D' },
+      // getPlaceholderImageUrl 関数を使用して画像を生成
+      image: { small: getPlaceholderImageUrl(300, 200, 'FFFF33', '000000', '商品D') },
       title: 'ファン必見のアイテム！限定品を見逃すな',
       price: '4,200円 (税込)'
     },
     {
-      affiliateURL: 'https://placehold.co/300x200/A0A0A0/FFFFFF?text=商品E', // ここにコンマを追加し、次の行でimageプロパティを追加
-      image: { small: 'https://placehold.co/300x200/A0A0A0/FFFFFF?text=商品E' }, // この行を追加
+      affiliateURL: 'https://example.com/product-e',
+      // getPlaceholderImageUrl 関数を使用して画像を生成
+      image: { small: getPlaceholderImageUrl(300, 200, 'A0A0A0', 'FFFFFF', '商品E') }, 
       title: '新しい趣味を見つけよう！入門に最適',
       price: '980円 (税込)'
     },
     {
-      affiliateURL: 'https://placehold.co/300x200/6A0DAD/FFFFFF?text=商品F',
-      image: { small: 'https://placehold.co/300x200/6A0DAD/FFFFFF?text=商品F' },
+      affiliateURL: 'https://placehold.co/300x200/6A0DAD/FFFFFF?text=%E5%95%86%E5%93%81F',
+      // getPlaceholderImageUrl 関数を使用して画像を生成
+      image: { small: getPlaceholderImageUrl(300, 200, '6A0DAD', 'FFFFFF', '商品F') }, 
       title: '週末を充実させる！楽しいエンターテイメント',
       price: '1,200円 (税込)'
     }
