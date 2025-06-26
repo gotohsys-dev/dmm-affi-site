@@ -6,8 +6,8 @@
   let product = null;
 
   onMount(async () => {
-    // const res = await fetch('http://localhost:8000/api/products/random-one/');
-    const res = await fetch("https://django-backend-1-ikcz.onrender.com/api/products/random-one/");
+    const res = await fetch('http://localhost:8000/api/products/random-one/');
+    // const res = await fetch("https://django-backend-1-ikcz.onrender.com/api/products/random-one/");
     product = await res.json();
   });
 </script>
