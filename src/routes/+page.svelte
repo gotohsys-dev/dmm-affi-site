@@ -5,24 +5,48 @@
   let products = [];
   let currentIndex = 0;
 
-onMount(async () => {
-  const res = await fetch("http://localhost:8000/api/products/random/");
-  // const res = await fetch("https://django-backend-1-ikcz.onrender.com/api/products/random/");
-  products = await res.json();
-  console.log("取得したproducts:", products); // ✅ここ
-  rotate();
-});
+  onMount(async () => {
+    const res = await fetch("http://localhost:8000/api/products/random/");
+    // const res = await fetch("https://django-backend-1-ikcz.onrender.com/api/products/random/");
+    products = await res.json();
+    console.log("取得したproducts:", products); // ✅ここ
+    rotate();
+  });
 
+  // 作品ルーレット
   function rotate() {
     setInterval(() => {
       currentIndex = (currentIndex + 1) % products.length;
     }, 1500); // 1.5秒ごとに切り替え
   }
+
+  // ガチャを回す
+  async function rollGacha(count: number) {
+    const endpoint = count === 1
+      ? 'http://localhost:8000/api/products/random-one/'
+      : 'http://localhost:8000/api/products/random/';
+
+    try {
+      const res = await fetch(endpoint);
+      const result = await res.json();
+
+      if (!res.ok) throw new Error('APIエラー');
+
+      const params = new URLSearchParams();
+      params.set('data', encodeURIComponent(JSON.stringify(result)));
+
+      await goto(`/gacha-result?${params.toString()}`);
+    } catch (err) {
+      alert('ガチャ取得に失敗しました');
+      console.error(err);
+    }
+  }
+
 </script>
 
 <div class="text-center p-4">
   <h1 class="text-2xl font-bold mb-4">🎰 毎日AVガチャ</h1>
-  <p class="mb-6">数万作品からランダムで表示(画面更新ごとに10作品☆)</p>
+  <p class="mb-6">数万作品からランダムで表示(画面更新すると表示が変わります☆)</p>
 </div>
 
 {#if products.length > 0}
@@ -41,9 +65,16 @@ onMount(async () => {
 <div class="mt-6 text-center">
   <button
     on:click={() => goto('/gacha-result')}
-    class="px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white rounded-full shadow"
+    class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
   >
-    🎯 ガチャを回す
+    ガチャを回す
+  </button>
+
+  <button
+    on:click={() => goto('/gacha-result?bulk=10')}
+    class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+  >
+    10連ガチャ
   </button>
 </div>
 
