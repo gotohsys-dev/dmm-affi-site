@@ -9,7 +9,7 @@
       当サイトに関するご意見・ご質問がございましたら、以下のメールアドレスまでご連絡ください。
     </p>
     <p class="text-center text-blue-300 font-mono">
-      📧 <a href="mainichi.emarugacha@gmail.com" class="hover:underline">example@example.com</a>
+      📧 <a href="mainichi.emarugacha@gmail.com" class="hover:underline">mainichi.emarugacha@gmail.com</a>
     </p>
     <p class="mt-6 text-xs text-center text-gray-500">※ すべてのご連絡に対応できない場合があります。あらかじめご了承ください。</p>
   </Card>
