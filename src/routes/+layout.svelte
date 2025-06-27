@@ -25,5 +25,5 @@
   <a href="/terms" class="hover:underline">利用規約</a> |
   <a href="/copyright" class="hover:underline">著作権</a> |
   <a href="/contact" class="hover:underline">お問い合わせ</a>
-  <div class="mt-2">© 2025 毎日AVガチャ</div>
+  <div class="mt-2">© 2025 毎日エ〇ガチャ</div>
 </footer>
