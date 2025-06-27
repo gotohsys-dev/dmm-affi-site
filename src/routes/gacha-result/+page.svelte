@@ -14,12 +14,11 @@
     const { url } = get(page);
     const isBulk = url.searchParams.get('bulk') === '10';
 
-    // const endpoint = isBulk
-    //   ? 'https://django-backend-1-ikcz.onrender.com/api/products/random/'      // 10 件
-    //   : 'https://django-backend-1-ikcz.onrender.com/api/products/random-one/'; // 1 件
     const endpoint = isBulk
-      ? `${PUBLIC_API_BASE}/products/random/`      // 10 件
-      : `${PUBLIC_API_BASE}/products/random-one/`; // 1 件
+      ? 'https://django-backend-1-ikcz.onrender.com/api/products/random/'      // 10 件
+      : 'https://django-backend-1-ikcz.onrender.com/api/products/random-one/'; // 1 件
+      // ? `${PUBLIC_API_BASE}/products/random/`      // 10 件
+      // : `${PUBLIC_API_BASE}/products/random-one/`; // 1 件
 
     const res = await fetch(endpoint);
     const data = await res.json();

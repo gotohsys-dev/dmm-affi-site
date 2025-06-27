@@ -6,10 +6,12 @@
   let products = [];
   let currentIndex = 0;
 
+  console.log("PUBLIC_API_BASE:", PUBLIC_API_BASE); // ← ここを確認
+  
   onMount(async () => {
     // const res = await fetch("http://localhost:8000/api/products/random/");
-    // const res = await fetch("https://django-backend-1-ikcz.onrender.com/api/products/random/");
-    const res = await fetch(`${PUBLIC_API_BASE}/products/random/`);
+    const res = await fetch("https://django-backend-1-ikcz.onrender.com/api/products/random/");
+    // const res = await fetch(`${PUBLIC_API_BASE}/products/random/`);
     products = await res.json();
     console.log("取得したproducts:", products); // ✅ここ
     rotate();
@@ -25,10 +27,10 @@
   // ガチャを回す
   async function rollGacha(count: number) {
     const endpoint = count === 1
-      // ? 'https://django-backend-1-ikcz.onrender.com/api/products/random-one/'
-      // : 'https://django-backend-1-ikcz.onrender.com/api/products/random/';
-      ? `${PUBLIC_API_BASE}/products/random/`      // 10 件
-      : `${PUBLIC_API_BASE}/products/random-one/`; // 1 件
+      ? 'https://django-backend-1-ikcz.onrender.com/api/products/random-one/'
+      : 'https://django-backend-1-ikcz.onrender.com/api/products/random/';
+      // ? `${PUBLIC_API_BASE}/products/random/`      // 10 件
+      // : `${PUBLIC_API_BASE}/products/random-one/`; // 1 件
 
     try {
       const res = await fetch(endpoint);
