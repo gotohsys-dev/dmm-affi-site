@@ -4,6 +4,7 @@
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
   import { get } from 'svelte/store';
+   export const API_BASE = import.meta.env.PUBLIC_API_BASE;
 
   /** 取得結果を格納（複数でも単数でも配列化） */
   let products: any[] = [];
@@ -13,9 +14,12 @@
     const { url } = get(page);
     const isBulk = url.searchParams.get('bulk') === '10';
 
+    // const endpoint = isBulk
+    //   ? 'https://django-backend-1-ikcz.onrender.com/api/products/random/'      // 10 件
+    //   : 'https://django-backend-1-ikcz.onrender.com/api/products/random-one/'; // 1 件
     const endpoint = isBulk
-      ? 'https://django-backend-1-ikcz.onrender.com/api/products/random/'      // 10 件
-      : 'https://django-backend-1-ikcz.onrender.com/api/products/random-one/'; // 1 件
+      ? `${API_BASE}/products/random/`      // 10 件
+      : `${API_BASE}/products/random-one/`; // 1 件
 
     const res = await fetch(endpoint);
     const data = await res.json();

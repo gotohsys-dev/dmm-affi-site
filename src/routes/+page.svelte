@@ -1,13 +1,15 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { goto } from '$app/navigation';
-
+  export const API_BASE = import.meta.env.PUBLIC_API_BASE;
+  
   let products = [];
   let currentIndex = 0;
 
   onMount(async () => {
     // const res = await fetch("http://localhost:8000/api/products/random/");
-    const res = await fetch("https://django-backend-1-ikcz.onrender.com/api/products/random/");
+    // const res = await fetch("https://django-backend-1-ikcz.onrender.com/api/products/random/");
+    const res = await fetch(`${API_BASE}/products/random/`);
     products = await res.json();
     console.log("取得したproducts:", products); // ✅ここ
     rotate();

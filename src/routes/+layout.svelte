@@ -1,5 +1,8 @@
 
-<svelte:head></svelte:head>
+<svelte:head>
+  <title>毎日エ〇ガチャ</title>
+</svelte:head>
+
   <meta name="google-site-verification" content="4yiw-UxhLeEw9Ev1NyPeblxlCdODo77fSeDQkb4--O4" />
 <script lang="ts">
   
