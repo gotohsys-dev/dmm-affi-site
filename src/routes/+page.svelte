@@ -10,11 +10,19 @@
   
   onMount(async () => {
     // const res = await fetch("http://localhost:8000/api/products/random/");
-    // const res = await fetch("https://django-backend-1-ikcz.onrender.com/api/products/random/");
-    const res = await fetch(`${PUBLIC_API_BASE}/products/random/`);
+    const res = await fetch("https://django-backend-1-ikcz.onrender.com/api/products/random/");
+    // const res = await fetch(`${PUBLIC_API_BASE}/products/random/`);
     products = await res.json();
     console.log("取得したproducts:", products); // ✅ここ
     rotate();
+
+    // ✅ Twitterウィジェットのスクリプトを読み込む
+    const script = document.createElement("script");
+    script.src = "https://platform.twitter.com/widgets.js";
+    script.async = true;
+    script.charset = "utf-8";
+    document.body.appendChild(script);
+
   });
 
   // 作品ルーレット
@@ -98,3 +106,13 @@
     ※ 当サイトはDMMアフィリエイトプログラムに参加しており、リンク先の商品を購入されると、運営者に報酬が発生することがあります。
   </p>
 </section>
+
+<div class="mt-12 text-center">
+  <a
+    class="twitter-timeline"
+    href="https://twitter.com/emarugacha?ref_src=twsrc%5Etfw"
+  >
+    Tweets by emarugacha
+  </a>
+</div>
+
