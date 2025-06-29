@@ -59,6 +59,7 @@
         </a>
 
         <a href="/" class="text-blue-400 hover:underline">🔁 トップに戻る</a>
+        
       </Card>
     </div>
 
