@@ -6,6 +6,7 @@
   import { get } from 'svelte/store';
   import { PUBLIC_API_BASE } from '$env/static/public';
 
+
   /** 取得結果を格納（複数でも単数でも配列化） */
   let products: any[] = [];
 
@@ -14,12 +15,11 @@
     const { url } = get(page);
     const isBulk = url.searchParams.get('bulk') === '10';
 
-    // const endpoint = isBulk
-    //   ? 'https://django-backend-1-ikcz.onrender.com/api/products/random/'      // 10 件
-    //   : 'https://django-backend-1-ikcz.onrender.com/api/products/random-one/'; // 1 件
     const endpoint = isBulk
-      ? `${PUBLIC_API_BASE}/products/random/`      // 10 件
-      : `${PUBLIC_API_BASE}/products/random-one/`; // 1 件
+      ? 'https://django-backend-1-ikcz.onrender.com/api/products/random/'      // 10 件
+      : 'https://django-backend-1-ikcz.onrender.com/api/products/random-one/'; // 1 件
+      // ? `${PUBLIC_API_BASE}/products/random/`      // 10 件
+      // : `${PUBLIC_API_BASE}/products/random-one/`; // 1 件
 
     const res = await fetch(endpoint);
     const data = await res.json();
@@ -48,6 +48,16 @@
 
         <p class="text-lg font-semibold mb-6">{products[0].title}</p>
 
+        <!-- Xで共有するボタン -->
+        <a
+          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`🎯 ガチャで「${products[0].title}」が当たったよ！ ${products[0].affiliate_url} `)} #毎日エ丸ガチャ #PR`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+        >
+          Xで共有する
+        </a>
+
         <a href="/" class="text-blue-400 hover:underline">🔁 トップに戻る</a>
       </Card>
     </div>
@@ -68,6 +78,15 @@
               />
             </a>
             <p class="text-sm font-semibold line-clamp-2">{p.title}</p>
+            <!-- Xで共有するボタン -->
+            <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`🎯 毎日エ〇ガチャで「${products[0].title}」が当たったよ！ ${products[0].affiliate_url} `)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+            >
+              Xで共有する
+            </a>
           </Card>
         {/each}
       </div>

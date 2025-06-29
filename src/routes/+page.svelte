@@ -6,6 +6,8 @@
   let products = [];
   let currentIndex = 0;
 
+  console.log("PUBLIC_API_BASE:", PUBLIC_API_BASE); // ← ここを確認
+  
   onMount(async () => {
     // const res = await fetch("http://localhost:8000/api/products/random/");
     // const res = await fetch("https://django-backend-1-ikcz.onrender.com/api/products/random/");
@@ -25,10 +27,10 @@
   // ガチャを回す
   async function rollGacha(count: number) {
     const endpoint = count === 1
-      // ? 'https://django-backend-1-ikcz.onrender.com/api/products/random-one/'
-      // : 'https://django-backend-1-ikcz.onrender.com/api/products/random/';
-      ? `${PUBLIC_API_BASE}/products/random/`      // 10 件
-      : `${PUBLIC_API_BASE}/products/random-one/`; // 1 件
+      ? 'https://django-backend-1-ikcz.onrender.com/api/products/random-one/'
+      : 'https://django-backend-1-ikcz.onrender.com/api/products/random/';
+      // ? `${PUBLIC_API_BASE}/products/random/`      // 10 件
+      // : `${PUBLIC_API_BASE}/products/random-one/`; // 1 件
 
     try {
       const res = await fetch(endpoint);
@@ -51,6 +53,7 @@
 <div class="text-center p-4">
   <h1 class="text-2xl font-bold mb-4">🎰 毎日エ〇ガチャ</h1>
   <p class="mb-6">数万作品からランダムで表示(画面更新すると表示が変わります☆)</p>
+  <p class="mb-6">※無料サーバーを利用している為、15分以上このサイトにアクセスがないと、表示まで1分以上かかります。</p>
 </div>
 
 {#if products.length > 0}
