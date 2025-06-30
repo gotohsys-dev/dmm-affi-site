@@ -16,10 +16,10 @@
     const isBulk = url.searchParams.get('bulk') === '10';
 
     const endpoint = isBulk
-      ? 'https://django-backend-1-ikcz.onrender.com/api/products/random/'      // 10 件
-      : 'https://django-backend-1-ikcz.onrender.com/api/products/random-one/'; // 1 件
-      // ? `${PUBLIC_API_BASE}/products/random/`      // 10 件
-      // : `${PUBLIC_API_BASE}/products/random-one/`; // 1 件
+      // ? 'https://django-backend-1-ikcz.onrender.com/api/products/random/'      // 10 件
+      // : 'https://django-backend-1-ikcz.onrender.com/api/products/random-one/'; // 1 件
+      ? `${PUBLIC_API_BASE}/products/random/`      // 10 件
+      : `${PUBLIC_API_BASE}/products/random-one/`; // 1 件
 
     const res = await fetch(endpoint);
     const data = await res.json();
@@ -50,7 +50,7 @@
 
         <!-- Xで共有するボタン -->
         <a
-          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`🎯 ガチャで「${products[0].title}」が当たったよ！ ${products[0].affiliate_url} 毎日エ〇ガチャhttp://bit.ly/3I4n27L #PR`)}`}
+          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`🎯 ガチャで「${products[0].title}」が当たったよ！ ${products[0].affiliate_url}%0A毎日エ〇ガチャhttp://bit.ly/3I4n27L #PR`)}`}
           target="_blank"
           rel="noopener noreferrer"
           class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
