@@ -50,7 +50,7 @@
 
         <!-- Xで共有するボタン -->
         <a
-          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`🎯 ガチャで「${products[0].title}」が当たったよ！ ${products[0].affiliate_url} #毎日エ丸ガチャ #PR`)}`}
+          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`🎯 ガチャで「${products[0].title}」が当たったよ！ ${products[0].affiliate_url} 毎日エ〇ガチャhttp://bit.ly/3I4n27L #PR`)}`}
           target="_blank"
           rel="noopener noreferrer"
           class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"

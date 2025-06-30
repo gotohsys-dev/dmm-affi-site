@@ -1,42 +1,40 @@
 <script>
   import { onMount } from "svelte";
   import { goto } from '$app/navigation';
-  import { PUBLIC_API_BASE } from '$env/static/public';
+  import { PUBLIC_API_BASE } from '$env/static/public'; // PUBLIC_API_BASEをインポートしていることを確認
 
   let products = [];
   let currentIndex = 0;
-  let twitterLoaded = true; // Twitterウィジェットの表示は今回は触りません
-  let isLoadingImage = true; // ★画像読み込み中の状態を追加
+  let twitterLoaded = true;
+  let isLoadingImage = true;
 
   console.log("PUBLIC_API_BASE:", PUBLIC_API_BASE);
 
   onMount(async () => {
     try {
-      const res = await fetch("https://django-backend-1-ikcz.onrender.com/api/products/random/");
+      const res = await fetch(`${PUBLIC_API_BASE}/products/random/`); // ★ここもPUBLIC_API_BASEを使うと良いでしょう
       products = await res.json();
       console.log("取得したproducts:", products);
 
-      // ★画像のロードが完了したら isLoadingImage を false にする
       if (products.length > 0) {
-        // 現在の画像のロードを監視するためのImageオブジェクトを作成
         const img = new Image();
         img.src = products[currentIndex].image_url;
         img.onload = () => {
-          isLoadingImage = false; // 画像がロードされたらfalseにする
-          rotate(); // 画像が表示されてからルーレットを開始
+          isLoadingImage = false;
+          rotate();
         };
         img.onerror = () => {
           console.error("画像のロードに失敗しました:", products[currentIndex].image_url);
-          isLoadingImage = false; // エラーでも表示を解除
-          rotate(); // エラーでもルーレットを開始
+          isLoadingImage = false;
+          rotate();
         };
       } else {
-        isLoadingImage = false; // 製品がない場合は即座に解除
+        isLoadingImage = false;
       }
 
     } catch (error) {
       console.error("製品データの取得に失敗しました:", error);
-      isLoadingImage = false; // エラーが発生しても解除
+      isLoadingImage = false;
     }
 
     // Twitterウィジェットのスクリプトを読み込む (既存のロジック)
@@ -56,10 +54,9 @@
 
   // 作品ルーレット
   function rotate() {
-    // ★画像ロード後にルーレットが開始されるように、onMount内のimg.onloadに移動しました
     setInterval(() => {
       currentIndex = (currentIndex + 1) % products.length;
-      isLoadingImage = true; // ★画像が切り替わるたびに、再度ローディング状態にする
+      isLoadingImage = true;
       if (products.length > 0) {
         const img = new Image();
         img.src = products[currentIndex].image_url;
@@ -73,14 +70,14 @@
       } else {
         isLoadingImage = false;
       }
-    }, 1500); // 1.5秒ごとに切り替え
+    }, 1500);
   }
 
-  // ガチャを回す (変更なし)
+  // ガチャを回す
   async function rollGacha(count) {
     const endpoint = count === 1
-      ? 'https://django-backend-1-ikcz.onrender.com/api/products/random-one/'
-      : 'https://django-backend-1-ikcz.onrender.com/api/products/random/';
+      ? `${PUBLIC_API_BASE}/products/random-one/`  // 1件取得の場合
+      : `${PUBLIC_API_BASE}/products/random/`;     // 10件取得の場合 (既存のコメントを置き換え)
 
     try {
       const res = await fetch(endpoint);
@@ -102,7 +99,7 @@
 <div class="text-center p-4">
   <h1 class="text-2xl font-bold mb-4">🎰 毎日エ〇ガチャ</h1>
   <p class="mb-6">数万作品からランダムで表示(画面更新すると表示が変わります☆)</p>
-  <p class="mb-6">※無料サーバーを利用している為、15分以上このサイトにアクセスがないと、表示まで1分以上かかります。</p>
+  <p class="mb-6">※無料サーバーを利用している為、15分以上このサイトに一人もアクセスがないと、表示まで1分以上かかります。</p>
 </div>
 
 <div class="text-center p-4">
@@ -111,7 +108,7 @@
   {:else if isLoadingImage}
     <div class="flex items-center justify-center w-[512px] h-[384px] mx-auto bg-gray-200 rounded-lg shadow">
       <p class="text-xl text-gray-700">画像読み込み中...</p>
-      </div>
+    </div>
   {:else}
     <a href={products[currentIndex].affiliate_url} target="_blank" rel="noopener">
       <img
