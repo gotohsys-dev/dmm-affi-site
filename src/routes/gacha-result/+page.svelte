@@ -50,10 +50,11 @@
 
         <!-- Xで共有するボタン -->
         <a
-          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`🎯 ガチャで「${products[0].title}」が当たったよ！ ${products[0].affiliate_url}%0A毎日エ〇ガチャhttp://bit.ly/3I4n27L #PR`)}`}
+          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+            `🎯 ガチャで「${products[0].title}」が当たったよ！%0A毎日エ〇ガチャhttp://bit.ly/3I4n27L #PR`
+          )}&url=${products[0].affiliate_url}`}
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
         >
           Xで共有する
         </a>
@@ -81,10 +82,11 @@
             <p class="text-sm font-semibold line-clamp-2">{p.title}</p>
             <!-- Xで共有するボタン -->
             <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`🎯 ガチャで「${p.title}」が当たったよ！ ${p.affiliate_url}%0A毎日エ〇ガチャhttp://bit.ly/3I4n27L #PR`)}`}
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                `🎯 ガチャで「${p.title}」が当たったよ！%0A毎日エ〇ガチャhttp://bit.ly/3I4n27L #PR`
+              )}&url=${p.affiliate_url}`}
               target="_blank"
               rel="noopener noreferrer"
-              class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
             >
               Xで共有する
             </a>
