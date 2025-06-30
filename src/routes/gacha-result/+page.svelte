@@ -81,7 +81,7 @@
             <p class="text-sm font-semibold line-clamp-2">{p.title}</p>
             <!-- Xで共有するボタン -->
             <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`🎯 毎日エ〇ガチャで「${products[p].title}」が当たったよ！ ${products[p].affiliate_url} `)}`}
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`🎯 ガチャで「${p.title}」が当たったよ！ ${p.affiliate_url}%0A毎日エ〇ガチャhttp://bit.ly/3I4n27L #PR`)}`}
               target="_blank"
               rel="noopener noreferrer"
               class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
