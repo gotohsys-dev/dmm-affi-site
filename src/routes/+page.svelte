@@ -50,6 +50,14 @@
       }
     };
     document.body.appendChild(script);
+
+    if (!document.querySelector('.dmm-widget-scripts')) {
+      const script = document.createElement('script');
+      script.src = 'https://widget-view.dmm.co.jp/js/placement.js';
+      script.className = 'dmm-widget-scripts';
+      script.setAttribute('data-id', '043481a98d238feacca4c97e7b47d21b');
+      document.body.appendChild(script);
+    }
   });
 
   // 作品ルーレット
@@ -136,6 +144,13 @@
     10連ガチャ
   </button>
 </div>
+
+<!-- DMMウィジェット埋め込み要素 -->
+<ins
+  class="dmm-widget-placement"
+  data-id="043481a98d238feacca4c97e7b47d21b"
+  style="background:transparent"
+></ins>
 
 <section class="max-w-2xl mx-auto mt-12 p-6 bg-white/80 backdrop-blur-md rounded-xl shadow-lg text-gray-800">
   <h2 class="text-2xl font-bold mb-4 text-center">このサイトについて</h2>
