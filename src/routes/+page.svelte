@@ -1,18 +1,17 @@
 <script>
   import { onMount } from "svelte";
   import { goto } from '$app/navigation';
-  import { PUBLIC_API_BASE } from '$env/static/public'; // PUBLIC_API_BASEをインポートしていることを確認
+  import { PUBLIC_API_BASE } from '$env/static/public';
 
   let products = [];
   let currentIndex = 0;
-  let twitterLoaded = true;
-  let isLoadingImage = true;
+  let isLoadingImage = true; // twitterLoaded は不要なので削除
 
   console.log("PUBLIC_API_BASE:", PUBLIC_API_BASE);
 
   onMount(async () => {
     try {
-      const res = await fetch(`${PUBLIC_API_BASE}/products/random/`); // ★ここもPUBLIC_API_BASEを使うと良いでしょう
+      const res = await fetch(`${PUBLIC_API_BASE}/products/random/`);
       products = await res.json();
       console.log("取得したproducts:", products);
 
@@ -37,25 +36,41 @@
       isLoadingImage = false;
     }
 
-    // Twitterウィジェットのスクリプトを読み込む (既存のロジック)
-    const script = document.createElement("script");
-    script.src = "https://platform.twitter.com/widgets.js";
-    script.async = true;
-    script.charset = "utf-8";
-    script.onload = () => {
+    // --- Twitterウィジェットの読み込み ---
+    // Twitterスクリプトがロードされ、レンダリングをトリガーすることを確認
+    const twitterScriptId = 'twitter-wjs';
+    if (!document.getElementById(twitterScriptId)) {
+      const script = document.createElement("script");
+      script.id = twitterScriptId; // 重複ロードを防ぐためにIDを割り当て
+      script.src = "https://platform.twitter.com/widgets.js";
+      script.async = true;
+      script.charset = "utf-8";
+      script.onload = () => {
+        // スクリプトがロードされた後、window.twttr.widgets が利用可能か確認し、タイムラインをロード
+        if (window.twttr && window.twttr.widgets) {
+          window.twttr.widgets.load(document.getElementById('twitter-timeline-container'));
+        } else {
+          console.error("Twitter widgets not loaded or twttr object not found.");
+        }
+      };
+      document.body.appendChild(script);
+    } else {
+      // スクリプトが既に存在する場合 (例: ホットリロード中)、ウィジェットをロードしてレンダリングを保証
       if (window.twttr && window.twttr.widgets) {
         window.twttr.widgets.load(document.getElementById('twitter-timeline-container'));
-      } else {
-        console.error("Twitter widgets not loaded or twttr object not found.");
       }
-    };
-    document.body.appendChild(script);
+    }
 
-    if (!document.querySelector('.dmm-widget-scripts')) {
+    // --- DMMウィジェットの読み込み ---
+    // DMMスクリプトは、配置をアクティブにする前にDOMに存在する必要があります。
+    // DMMスクリプトは、'dmm-widget-placement' クラスを持つ <ins> タグをドキュメント全体でスキャンします。
+    // DMMスクリプトは一度だけロードすれば十分です。
+    const dmmScriptClass = 'dmm-widget-scripts';
+    if (!document.querySelector(`.${dmmScriptClass}`)) {
       const script = document.createElement('script');
       script.src = 'https://widget-view.dmm.co.jp/js/placement.js';
-      script.className = 'dmm-widget-scripts';
-      script.setAttribute('data-id', '043481a98d238feacca4c97e7b47d21b');
+      script.className = dmmScriptClass;
+      // スクリプト自体に data-id を設定する必要はありません。これは <ins> タグから読み取られます。
       document.body.appendChild(script);
     }
   });
@@ -84,8 +99,8 @@
   // ガチャを回す
   async function rollGacha(count) {
     const endpoint = count === 1
-      ? `${PUBLIC_API_BASE}/products/random-one/`  // 1件取得の場合
-      : `${PUBLIC_API_BASE}/products/random/`;     // 10件取得の場合 (既存のコメントを置き換え)
+      ? `${PUBLIC_API_BASE}/products/random-one/`
+      : `${PUBLIC_API_BASE}/products/random/`;
 
     try {
       const res = await fetch(endpoint);
@@ -131,21 +146,20 @@
 
 <div class="mt-6 text-center">
   <button
-    on:click={() => goto('/gacha-result')}
+    on:click={() => rollGacha(1)}
     class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
   >
     ガチャを回す
   </button>
 
   <button
-    on:click={() => goto('/gacha-result?bulk=10')}
+    on:click={() => rollGacha(10)}
     class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
   >
     10連ガチャ
   </button>
 </div>
 
-<!-- DMMウィジェット埋め込み要素 -->
 <ins
   class="dmm-widget-placement"
   data-id="043481a98d238feacca4c97e7b47d21b"

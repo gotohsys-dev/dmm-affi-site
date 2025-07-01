@@ -46,7 +46,9 @@
           />
         </a>
 
-        <p class="text-lg font-semibold mb-6">{products[0].title}</p>
+        <a href={products[0].affiliate_url} target="_blank" rel="sponsored">
+          <p class="text-lg font-semibold mb-6">{products[0].title}</p>
+        </a>
 
         <!-- Xで共有するボタン -->
         <a
@@ -78,10 +80,14 @@
                 class="object-contain w-full h-48 rounded-lg shadow mb-3"
               />
             </a>
-            <p class="text-sm font-semibold line-clamp-2">{p.title}</p>
+
+            <a href={p.affiliate_url} target="_blank" rel="sponsored">
+              <p class="text-sm font-semibold line-clamp-2">{p.title}</p>
+            </a>
+
             <!-- Xで共有するボタン -->
             <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`🎯 ガチャで「${p.title}」が当たったよ！ ${p.affiliate_url} 毎日エ〇ガチャhttp://bit.ly/3I4n27L #PR`)}`}
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`🎯 ガチャで「${p.title}」が当たったよ！ 毎日エ〇ガチャhttp://bit.ly/3I4n27L ${p.affiliate_url} #PR`)}`}
               target="_blank"
               rel="noopener noreferrer"
               class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
@@ -98,3 +104,4 @@
     </div>
   {/if}
 {/if}
+
