@@ -38,28 +38,29 @@
     }
 
     // Twitterウィジェットのスクリプトを読み込む (既存のロジック)
-    const script = document.createElement("script");
-    script.src = "https://platform.twitter.com/widgets.js";
-    script.async = true;
-    script.charset = "utf-8";
-    script.onload = () => {
-      if (window.twttr && window.twttr.widgets) {
-        window.twttr.widgets.load(document.getElementById('twitter-timeline-container'));
-      } else {
-        console.error("Twitter widgets not loaded or twttr object not found.");
-      }
-    };
-    document.body.appendChild(script);
-
-    // DMMウィジェットのスクリプトを読み込む (既存のロジック)
-    if (!document.querySelector('.dmm-widget-scripts')) {
-      const script = document.createElement('script');
-      script.src = 'https://widget-view.dmm.co.jp/js/placement.js';
-      script.className = 'dmm-widget-scripts';
-      script.setAttribute('data-id', '043481a98d238feacca4c97e7b47d21b');
-      document.body.appendChild(script);
-    }
+    // const script = document.createElement("script");
+    // script.src = "https://platform.twitter.com/widgets.js";
+    // script.async = true;
+    // script.charset = "utf-8";
+    // script.onload = () => {
+    //   if (window.twttr && window.twttr.widgets) {
+    //     window.twttr.widgets.load(document.getElementById('twitter-timeline-container'));
+    //   } else {
+    //     console.error("Twitter widgets not loaded or twttr object not found.");
+    //   }
+    // };
+    // document.body.appendChild(script);
     
+    // DMMウィジェットのスクリプトを動的に読み込む（Svelteのルールに従い、かつDOM準備後に）
+  // DMMウィジェットのスクリプトがまだ読み込まれていない場合のみ実行
+  if (!document.querySelector('script[src="https://widget-view.dmm.co.jp/js/placement.js"]')) {
+   const dmmScript = document.createElement('script');
+   dmmScript.src = 'https://widget-view.dmm.co.jp/js/placement.js';
+   dmmScript.className = 'dmm-widget-scripts';
+   dmmScript.setAttribute('data-id', '043481a98d238feacca4c97e7b47d21b');
+   document.body.appendChild(dmmScript);
+  }
+
   });
 
   // 作品ルーレット
@@ -147,18 +148,14 @@
   </button>
 </div>
 
-<!-- DMMウィジェット埋め込み要素 -->
-<ins
-  class="dmm-widget-placement"
-  data-id="043481a98d238feacca4c97e7b47d21b"
-  style="background:transparent"
-></ins>
+<ins class="dmm-widget-placement" data-id="043481a98d238feacca4c97e7b47d21b" style="background:transparent"></ins>
 
 <section class="max-w-2xl mx-auto mt-12 p-6 bg-white/80 backdrop-blur-md rounded-xl shadow-lg text-gray-800">
   <h2 class="text-2xl font-bold mb-4 text-center">このサイトについて</h2>
   <p class="mb-3 leading-relaxed">
     このサイトは、DMMアフィリエイトの公式APIを活用して、毎日違ったAV作品に出会える「ガチャ機能」を提供しています。
     ボタンをクリックすると、ランダムに選ばれた作品が表示され、気になる作品は画像クリックでDMMの公式ページからすぐに購入・視聴が可能です。
+    DMMのリンクのみしかありませんので、安心・安全です。
   </p>
   <p class="mb-3 leading-relaxed">
     AVガチャを回すだけのサイトですが、今後もコンテンツを拡充予定です。
@@ -168,7 +165,7 @@
   </p>
 </section>
 
-<div class="my-6 text-center" id="twitter-timeline-container">
+<!-- <div class="my-6 text-center" id="twitter-timeline-container">
   <a
     class="twitter-timeline"
     data-height="600"
@@ -176,4 +173,4 @@
   >
     Tweets by emarugacha
   </a>
-</div>
+</div> -->
