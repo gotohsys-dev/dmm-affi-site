@@ -66,7 +66,7 @@
 
         <a
           href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-            `🎯 ガチャで「${products[0].title}」が当たったよ！ ${products[0].affiliate_url} 毎日エ〇ガチャhttp://bit.ly/3I4n27L #AVガチャ #セクシー女優 #おすすめAV #今日の推し女優教えて`
+            `🎯 ガチャで「${products[0].title}」が当たったよ！ 毎日エ〇ガチャhttp://bit.ly/3I4n27L #AVガチャ #セクシー女優 #おすすめAV #今日の推し女優教えて ${products[0].affiliate_url}`
           )}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -100,7 +100,7 @@
 
             <a
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                `🎯 ガチャで「${p.title}」が当たったよ！ 毎日エ〇ガチャhttp://bit.ly/3I4n27L ${p.affiliate_url} #AVガチャ #セクシー女優 #おすすめAV #今日の推し女優教えて`
+                `🎯 ガチャで「${p.title}」が当たったよ！ 毎日エ〇ガチャhttp://bit.ly/3I4n27L #AVガチャ #セクシー女優 #おすすめAV #今日の推し女優教えて ${p.affiliate_url} `
               )}`}
               target="_blank"
               rel="noopener noreferrer"
