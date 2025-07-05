@@ -92,7 +92,7 @@
 
 <div class="text-center p-4">
   {#if products.length === 0}
-    <p class="text-xl text-gray-500">���品データを読み込み中...</p>
+    <p class="text-xl text-gray-500">商品データを読み込み中...</p>
   {:else if isLoadingImage}
     <div class="flex items-center justify-center w-[512px] h-[384px] mx-auto bg-gray-200 rounded-lg shadow">
       <p class="text-xl text-gray-700">画像読み込み中...</p>
