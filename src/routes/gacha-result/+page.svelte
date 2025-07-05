@@ -4,7 +4,9 @@
   import { onMount } from 'svelte';
   import { get } from 'svelte/store';
   import { PUBLIC_API_BASE } from '$env/static/public';
-
+  import DmmWidget from '$lib/DmmWidget.svelte'; // DmmWidgetコンポーネントをインポート
+  import DmmBannerWidget from '$lib/DmmBannerWidget.svelte'; // DmmBannerWidgetコンポーネントをインポート
+  
   /** 取得結果を格納（複数でも単数でも配列化） */
   let products: any[] = [];
 
@@ -66,7 +68,7 @@
 
         <a
           href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-            `🎯 ガチャで「${products[0].title}」が当たったよ！#セクシー女優 #おすすめAV #推し女優教えて 毎日エ〇ガチャhttp://bit.ly/3I4n27L ${products[0].affiliate_url}`
+            `🎯 ガチャで「${products[0].title}」が当たったよ！#おすすめAV #推し女優教えて 毎日エ〇ガチャhttp://bit.ly/3I4n27L ${products[0].affiliate_url}`
           )}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -100,7 +102,7 @@
 
             <a
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                `🎯 ガチャで「${p.title}」が当たったよ！ #セクシー女優 #おすすめAV #推し女優教えて 毎日エ〇ガチャhttp://bit.ly/3I4n27L ${p.affiliate_url} `
+                `🎯 ガチャで「${p.title}」が当たったよ！ #おすすめAV #推し女優教えて 毎日エ〇ガチャhttp://bit.ly/3I4n27L ${p.affiliate_url} `
               )}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -118,3 +120,8 @@
     </div>
   {/if}
 {/if}
+
+<div class="my-6 flex flex-wrap justify-center items-center gap-4">
+  <DmmWidget dataId="043481a98d238feacca4c97e7b47d21b" />
+  <DmmBannerWidget affiliate_id="honebuto-001" banner_id="1209_300_250" />
+</div>
