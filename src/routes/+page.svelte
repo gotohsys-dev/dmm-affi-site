@@ -3,7 +3,9 @@
   import { goto } from '$app/navigation';
   import { PUBLIC_API_BASE } from '$env/static/public'; // PUBLIC_API_BASEをインポートしていることを確認
   import DmmWidget from '$lib/DmmWidget.svelte'; // DmmWidgetコンポーネントをインポート
+  import DmmWidget2 from '$lib/DmmWidget2.svelte'; // DmmWidgetコンポーネントをインポート
   import DmmBannerWidget from '$lib/DmmBannerWidget.svelte'; // DmmBannerWidgetコンポーネントをインポート
+  
 
   let products = [];
   let currentIndex = 0;
@@ -128,6 +130,7 @@
 <div class="my-6 flex flex-wrap justify-center items-center gap-4">
   <DmmWidget dataId="043481a98d238feacca4c97e7b47d21b" />
   <DmmBannerWidget affiliate_id="honebuto-001" banner_id="1209_300_250" />
+  <!-- <DmmBannerWidget affiliate_id="honebuto-001" banner_id="1524_300_250" /> -->
 </div>
 
 <section class="max-w-2xl mx-auto mt-12 p-6 bg-white/80 backdrop-blur-md rounded-xl shadow-lg text-gray-800">
@@ -144,4 +147,3 @@
     ※ 当サイトはDMMアフィリエイトプログラムに参加しており、リンク先の商品を購入されると、運営者に報酬が発生することがあります。
   </p>
 </section>
-
