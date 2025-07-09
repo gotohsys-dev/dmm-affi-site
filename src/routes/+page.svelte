@@ -65,24 +65,8 @@
 
   // ガチャを回す
   async function rollGacha(count) {
-    const endpoint = count === 1
-      ? `${PUBLIC_API_BASE}/products/random-one/`  // 1件取得の場���
-      : `${PUBLIC_API_BASE}/products/random/`;     // 10件取得の場合 (既存のコメントを置き換え)
-
-    try {
-      const res = await fetch(endpoint);
-      const result = await res.json();
-
-      if (!res.ok) throw new Error('APIエラー');
-
-      const params = new URLSearchParams();
-      params.set('data', encodeURIComponent(JSON.stringify(result)));
-
-      await goto(`/gacha-result?${params.toString()}`);
-    } catch (err) {
-      alert('ガチャ取得に失敗しました');
-      console.error(err);
-    }
+    const isBulk = count === 10;
+    await goto(`/gacha-result${isBulk ? '?bulk=10' : ''}`);
   }
 </script>
 
@@ -113,14 +97,14 @@
 
 <div class="mt-6 text-center">
   <button
-    on:click={() => goto('/gacha-result')}
+    on:click={() => rollGacha(1)}
     class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
   >
     ガチャを回す
   </button>
 
   <button
-    on:click={() => goto('/gacha-result?bulk=10')}
+    on:click={() => rollGacha(10)}
     class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
   >
     10連ガチャ

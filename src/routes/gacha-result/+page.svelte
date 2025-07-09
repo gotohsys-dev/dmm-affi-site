@@ -4,20 +4,18 @@
   import { onMount } from 'svelte';
   import { get } from 'svelte/store';
   import { PUBLIC_API_BASE } from '$env/static/public';
-  import DmmWidget from '$lib/DmmWidget.svelte'; // DmmWidgetコンポーネントをインポート
-  import DmmBannerWidget from '$lib/DmmBannerWidget.svelte'; // DmmBannerWidgetコンポーネントをインポート
+  import DmmWidget from '$lib/DmmWidget.svelte';
+  import DmmBannerWidget from '$lib/DmmBannerWidget.svelte';
   
-  /** 取得結果を格納（複数でも単数でも配列化） */
   let products: any[] = [];
 
   onMount(async () => {
-    // クエリに ?bulk=10 が付く場合は 10 連、なければ 1 件
     const { url } = get(page);
     const isBulk = url.searchParams.get('bulk') === '10';
 
     const endpoint = isBulk
-      ? `${PUBLIC_API_BASE}/products/random/` // 10 件
-      : `${PUBLIC_API_BASE}/products/random-one/`; // 1 件
+      ? `${PUBLIC_API_BASE}/products/random/`
+      : `${PUBLIC_API_BASE}/products/random-one/`;
 
     const res = await fetch(endpoint);
     const data = await res.json();
@@ -26,21 +24,15 @@
 </script>
 
 <style>
-  /* 回転アニメーションのCSS */
   @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
-
   .spinner::before {
-    content: '🎯'; /* スピナーに見える任意の文字や絵文字に変更できます */
+    content: '🎯';
     display: inline-block;
     animation: spin 1s linear infinite;
-    margin-right: 8px; /* スピナーとテキストの間にスペースを追加 */
+    margin-right: 8px;
   }
 </style>
 
@@ -63,12 +55,12 @@
         </a>
 
         <a href={products[0].affiliate_url} target="_blank" rel="sponsored">
-          <p class="text-lg font-semibold mb-6">{products[0].title}</p>
+          <p class="text-lg font-semibold mb-6">{products[0].rarity}:{products[0].title}</p>
         </a>
 
         <a
           href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-            `🎯 ガチャで「${products[0].title}」が当たったよ！#おすすめAV #推し女優教えて 毎日エ〇ガチャhttps://dmm-affi-site.vercel.app/ ${products[0].affiliate_url}`
+            `🎯 ガチャで「${products[0].title}」が当たったよ！ #おすすめAV #推し女優教えて 毎日エ〇ガチャhttps://dmm-affi-site.vercel.app/ ${products[0].affiliate_url}`
           )}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -97,7 +89,7 @@
             </a>
 
             <a href={p.affiliate_url} target="_blank" rel="sponsored">
-              <p class="text-sm font-semibold line-clamp-2">{p.title}</p>
+              <p class="text-sm font-semibold line-clamp-2">{p.rarity}:{p.title}</p>
             </a>
 
             <a

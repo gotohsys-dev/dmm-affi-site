@@ -8,6 +8,7 @@
   
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
+  import Header from '$lib/Header.svelte';
   import '../app.css';
 
   onMount(() => {
@@ -20,6 +21,7 @@
 
 <!-- 全体背景・テキストカラーを統一 -->
 <div class="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
+  <Header />
   <slot />
 </div>
 
