@@ -26,7 +26,7 @@
 </script>
 
 <div class="text-center p-4">
-  <h1 class="text-2xl font-bold mb-4">🎬 動画ガチャ</h1>
+  <h1 class="text-2xl font-bold mb-4">🎬 毎日動画ガチャ</h1>
   <p class="mb-6">数万作品からランダムで表示(画面更新すると表示が変わります☆)</p>
 </div>
 
