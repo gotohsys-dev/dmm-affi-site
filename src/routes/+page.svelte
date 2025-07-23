@@ -71,7 +71,7 @@
 </script>
 
 <div class="text-center p-4">
-  <h1 class="text-2xl font-bold mb-4">🎯  毎日ジャケガチャ</h1>
+  <h1 class="text-2xl font-bold mb-4">🎯  毎日AVガチャ</h1>
   <p class="mb-6">数万作品からランダムで表示(画面更新すると表示が変わります☆)</p>
   <p class="mb-6">※無料サーバーを利用している為、15分以上このサイトに一人もアクセスがないと、表示まで1分以上かかります。</p>
 </div>
