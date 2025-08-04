@@ -6,6 +6,7 @@
   import { PUBLIC_API_BASE } from '$env/static/public';
   import DmmWidget from '$lib/DmmWidget.svelte';
   import DmmBannerWidget from '$lib/DmmBannerWidget.svelte';
+  import TwitterTimeline from '$lib/TwitterTimeline.svelte';
   
   let products: any[] = [];
 
@@ -152,5 +153,5 @@
 
 <div class="my-6 flex flex-wrap justify-center items-center gap-4">
   <DmmWidget dataId="043481a98d238feacca4c97e7b47d21b" />
-  <DmmBannerWidget affiliate_id="honebuto-001" banner_id="1209_300_250" />
+  <DmmBannerWidget affiliate_id="honebuto-001" banner_id="1526_300_250" />
 </div>
