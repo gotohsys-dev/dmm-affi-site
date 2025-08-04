@@ -98,6 +98,7 @@
       <h2 class="text-3xl font-bold text-center text-white mb-8">🎯 10 連ガチャ結果</h2>
 
       <div class="grid gap-6 px-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <!-- <div class="grid gap-4 px-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"> -->
         {#each products as p}
           <Card maxWidth="max-w-xs">
             <a href={p.affiliate_url} target="_blank" rel="sponsored">
