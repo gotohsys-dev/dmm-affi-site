@@ -78,7 +78,7 @@
 
           <a
             href={`https://line.me/R/text?text=${encodeURIComponent(
-              `🎯 ガチャで「${products[0].title}」が当たったよ！ #おすすめAV #推し女優教えて 毎日エ〇ガチャhttps://dmm-affi-site.vercel.app/ ${products[0].affiliate_url}`
+              `🎯 ガチャで「${products[0].title}」が当たったよ！ #おすすめAV #推し女優教えて 毎日エ〇ガチャ\nhttps://dmm-affi-site.vercel.app/ ${products[0].affiliate_url}`
             )}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -115,7 +115,7 @@
           <div class="flex gap-2">
             <a
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                `🎯 ガチャで「${p.title}」が当たったよ！ #おすすめAV #推し女優教えて 毎日エ〇ガチャhttps://dmm-affi-site.vercel.app/ ${p.affiliate_url} `
+                `🎯 ガチャで「${p.title}」が当たったよ！ #おすすめAV #推し女優教えて 毎日エ〇ガチャ\nhttps://dmm-affi-site.vercel.app/ ${p.affiliate_url} `
               )}`}
               target="_blank"
               rel="noopener noreferrer"
