@@ -113,7 +113,7 @@
 </div>
 
 <div class="my-6 flex flex-wrap justify-center items-center gap-4">
-  <DmmWidget dataId="043481a98d238feacca4c97e7b47d21b" />
+  <!-- <DmmWidget dataId="043481a98d238feacca4c97e7b47d21b" /> -->
   <!-- <DmmBannerWidget affiliate_id="honebuto-001" banner_id="1209_300_250" /> -->
   <DmmWidget dataId="7466dd6057bbc4243631a4b74a3580da" />
   <!-- <DmmBannerWidget affiliate_id="honebuto-001" banner_id="1526_300_250" /> -->
