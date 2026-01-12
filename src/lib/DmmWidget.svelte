@@ -12,7 +12,7 @@
   onMount(() => {
     // コンポーネントがDOMにマウントされた後にスクリプトを動的に読み込む
     const script = document.createElement('script');
-    script.src = 'https://widget-view.dmm.co.jp/js/placement.js';
+    script.src = `https://widget-view.dmm.co.jp/js/placement.js?t=${Math.random()}`;
     script.className = 'dmm-widget-scripts';
     script.dataset.id = dataId;
     script.async = true;
