@@ -1,36 +1,34 @@
 <script>
   import { onMount } from 'svelte';
 
-  /**
-   * DMMウィジェットのデータID
-   * @type {string}
-   */
   export let dataId;
-
   let container;
 
   onMount(() => {
-    // コンポーネントがDOMにマウントされた後にスクリプトを動的に読み込む
-    const script = document.createElement('script');
-    script.src = `https://widget-view.dmm.co.jp/js/placement.js?t=${Math.random()}`;
-    script.className = 'dmm-widget-scripts';
-    script.dataset.id = dataId;
-    script.async = true;
+    // 既にスクリプトが読み込まれているかチェック
+    const existingScript = document.querySelector('script.dmm-widget-scripts-main');
 
-    // scriptタグをコンポーネントのコンテナに追加する
-    container.appendChild(script);
-
-    // コンポーネントが破棄されるときにクリーンアップは不要
-    // SvelteがコンテナごとDOMから削除するため、追加したscriptタグも一緒に削除される
+    if (!existingScript) {
+      // 初回のみメインスクリプトを読み込む
+      const script = document.createElement('script');
+      script.src = "https://widget-view.dmm.co.jp/js/placement.js";
+      script.className = 'dmm-widget-scripts-main';
+      script.async = true;
+      document.head.appendChild(script);
+    } else {
+      // 既にスクリプトが存在する場合、DMMの関数を再実行してウィジェットを描画させる
+      // ※ DMMのスクリプトがグローバルに render 関数などを展開している場合
+      if (window.DMM && window.DMM.widget && window.DMM.widget.render) {
+        window.DMM.widget.render();
+      }
+    }
   });
 </script>
 
-<!-- ウィジェットのコンテナ -->
-<div bind:this={container}>
-  <!-- DMMウィジェットのプレースホルダー -->
+<div bind:this={container} class="dmm-widget-wrapper">
   <ins
     class="dmm-widget-placement"
     data-id={dataId}
-    style="background:transparent"
+    style="background:transparent; display:inline-block;"
   ></ins>
 </div>
