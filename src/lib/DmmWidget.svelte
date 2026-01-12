@@ -1,19 +1,24 @@
-<svelte:head>
-  <!--
-    DMMのウィジェットスクリプトをページの<head>に一度だけ読み込みます。
-    Svelteは同一のsrcを持つscriptタグの重複を自動的に防ぎます。
-    スクリプトはページ上の 'dmm-widget-placement' クラスを持つすべての要素を検索して処理します。
-  -->
-  <script src="https://widget-view.dmm.co.jp/js/placement.js" async></script>
-</svelte:head>
-
 <script>
+  import { onMount } from 'svelte';
+
   /**
    * DMMウィジェットのデータID
    * @type {string}
    */
   export let dataId;
+
+  let container;
+
+  onMount(() => {
+    const script = document.createElement('script');
+    script.src = 'https://widget-view.dmm.co.jp/js/placement.js';
+    script.className = 'dmm-widget-scripts';
+    script.dataset.id = dataId;
+    container.appendChild(script);
+  });
 </script>
 
 <!-- DMMウィジェットのプレースホルダー -->
-<ins class="dmm-widget-placement" data-id={dataId} style="background:transparent"></ins>
+<div bind:this={container}>
+  <ins class="dmm-widget-placement" data-id={dataId} style="background:transparent"></ins>
+</div>
