@@ -115,7 +115,8 @@
 <div class="my-6 flex flex-wrap justify-center items-center gap-4">
   <DmmWidget dataId="043481a98d238feacca4c97e7b47d21b" />
   <!-- <DmmBannerWidget affiliate_id="honebuto-001" banner_id="1209_300_250" /> -->
-  <DmmBannerWidget affiliate_id="honebuto-001" banner_id="1526_300_250" />
+  <DmmWidget dataId="7466dd6057bbc4243631a4b74a3580da" />
+  <!-- <DmmBannerWidget affiliate_id="honebuto-001" banner_id="1526_300_250" /> -->
 </div>
 
 <section class="max-w-2xl mx-auto mt-12 p-6 bg-white/80 backdrop-blur-md rounded-xl shadow-lg text-gray-800">
