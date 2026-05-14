@@ -66,7 +66,7 @@
         <div class="flex gap-2 justify-center items-center">
           <a
             href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-              `🎯 ガチャで「${products[0].title.substring(0,80)}」が当たったよ！ ${products[0].affiliate_url} 毎日エ〇ガチャhttps://dmm-affi-site.vercel.app/`
+              `🎯 ガチャで「${products[0].title.substring(0,80)}」が当たったよ！ ${products[0].affiliate_url} 毎日エ〇ガチャhttps://dmm-affi-site.vercel.app/ #おすすめAV`
             )}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -79,7 +79,7 @@
 
           <a
             href={`https://line.me/R/share/text?text=${encodeURIComponent(
-              `🎯 ガチャで「${products[0].title.substring(0,80)}」が当たったよ！ ${products[0].affiliate_url} 毎日エ〇ガチャ:https://dmm-affi-site.vercel.app/`
+              `🎯 ガチャで「${products[0].title.substring(0,80)}」が当たったよ！ ${products[0].affiliate_url} 毎日エ〇ガチャ:https://dmm-affi-site.vercel.app/ #おすすめAV`
             )}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -117,7 +117,7 @@
           <div class="flex gap-2">
             <a
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                `🎯 ガチャで「${p.title}」が当たったよ！ ${p.affiliate_url} 毎日エ〇ガチャhttps://dmm-affi-site.vercel.app/`
+                `🎯 ガチャで「${p.title}」が当たったよ！ ${p.affiliate_url} 毎日エ〇ガチャhttps://dmm-affi-site.vercel.app/ #おすすめAV`
               )}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -129,7 +129,7 @@
 
             <a
               href={`https://line.me/R/share/text?text=${encodeURIComponent(
-                `🎯 ガチャで「${p.title}」が当たったよ！ ${p.affiliate_url} 毎日エ〇ガチャ:https://dmm-affi-site.vercel.app/`
+                `🎯 ガチャで「${p.title}」が当たったよ！ ${p.affiliate_url} 毎日エ〇ガチャ:https://dmm-affi-site.vercel.app/ #おすすめAV`
               )}`}
               target="_blank"
               rel="noopener noreferrer"
