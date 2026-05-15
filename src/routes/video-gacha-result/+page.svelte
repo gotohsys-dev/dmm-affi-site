@@ -21,6 +21,11 @@
     const data = await res.json();
     videos = Array.isArray(data) ? data : [data];
   });
+
+  const getShareText = (video: any) => {
+    const displayTitle = video.title.length > 80 ? video.title.substring(0, 80) + '...' : video.title;
+    return `🎬 動画ガチャで「${displayTitle}」が当たったよ！ ${video.affiliate_url} #動画ガチャ #おすすめAV https://dmm-affi-site.vercel.app/`;
+  };
 </script>
 
 <style>
@@ -52,9 +57,7 @@
 
         <div class="flex gap-2 justify-center items-center">
           <a
-            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-              `🎬 動画ガチャで「${videos[0].title.substring(0,80)}」が当たったよ！ ${videos[0].affiliate_url} #動画ガチャ #おすすめAV https://dmm-affi-site.vercel.app/`
-            )}`}
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText(videos[0]))}`}
             target="_blank"
             rel="noopener noreferrer"
             class="flex-1 mt-4 inline-flex items-center justify-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
@@ -65,9 +68,7 @@
           </a>
 
           <a
-            href={`https://line.me/R/share/text?text=${encodeURIComponent(
-              `🎬 動画ガチャで「${videos[0].title.substring(0,80)}」が当たったよ！ ${videos[0].affiliate_url} #動画ガチャ #おすすめAV https://dmm-affi-site.vercel.app/`
-            )}`}
+            href={`https://line.me/R/share/text?text=${encodeURIComponent(getShareText(videos[0]))}`}
             target="_blank"
             rel="noopener noreferrer"
             class="flex-1 mt-4 inline-flex items-center justify-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
@@ -93,9 +94,7 @@
 
             <div class="flex gap-2">
               <a
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                  `🎬 動画ガチャで「${v.title}」が当たったよ！ ${v.affiliate_url} #動画ガチャ #おすすめAV https://dmm-affi-site.vercel.app/`
-                )}`}
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText(v))}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="flex-1 mt-4 inline-flex items-center justify-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
@@ -105,9 +104,7 @@
               </a>
 
               <a
-                href={`https://line.me/R/share/text?text=${encodeURIComponent(
-                  `🎬 動画ガチャで「${v.title}」が当たったよ！ ${v.affiliate_url} #動画ガチャ #おすすめAV https://dmm-affi-site.vercel.app/`
-                )}`}
+                href={`https://line.me/R/share/text?text=${encodeURIComponent(getShareText(v))}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="flex-1 mt-4 inline-flex items-center justify-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
