@@ -49,10 +49,35 @@
         <a href={videos[0].affiliate_url} target="_blank" rel="sponsored">
           <p class="text-lg font-semibold mb-6">{videos[0].rarity}:{videos[0].title}</p>
         </a>
-        <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`🎬 動画ガチャで「${videos[0].title}」が当たったよ！ #動画ガチャ https://dmm-affi-site.vercel.app/ ${videos[0].affiliate_url}`)}`} target="_blank" rel="noopener noreferrer" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
-          Xで共有する
-        </a>
-        <a href="/videos" class="text-blue-400 hover:underline">🔁 動画ガチャに戻る</a>
+
+        <div class="flex gap-2 justify-center items-center">
+          <a
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+              `🎬 動画ガチャで「${videos[0].title.substring(0,80)}」が当たったよ！ ${videos[0].affiliate_url} #動画ガチャ #おすすめAV https://dmm-affi-site.vercel.app/`
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex-1 mt-4 inline-flex items-center justify-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+          >
+            <img src="/logo.svg" alt="Xで共有" class="h-6 w-6 mr-2" />
+            <span>ツイート
+            </span>
+          </a>
+
+          <a
+            href={`https://line.me/R/share/text?text=${encodeURIComponent(
+              `🎬 動画ガチャで「${videos[0].title.substring(0,80)}」が当たったよ！ ${videos[0].affiliate_url} #動画ガチャ #おすすめAV https://dmm-affi-site.vercel.app/`
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex-1 mt-4 inline-flex items-center justify-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+          >
+            <img src="/LINE_Brand_icon.png" alt="LINEで共有" class="h-6 w-6 mr-2" />
+            <span>LINEで送る</span>
+          </a>
+        </div>
+
+        <a href="/videos" class="mt-4 block text-center text-blue-400 hover:underline">🔁 動画ガチャに戻る</a>
       </Card>
     </div>
   {:else}
@@ -65,6 +90,32 @@
             <a href={v.affiliate_url} target="_blank" rel="sponsored">
               <p class="text-sm font-semibold line-clamp-2">{v.rarity}:{v.title}</p>
             </a>
+
+            <div class="flex gap-2">
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                  `🎬 動画ガチャで「${v.title}」が当たったよ！ ${v.affiliate_url} #動画ガチャ #おすすめAV https://dmm-affi-site.vercel.app/`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex-1 mt-4 inline-flex items-center justify-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+              >
+                <img src="/logo.svg" alt="Xで共有" class="h-6 w-6 mr-2" />
+                <span>ツイート</span>
+              </a>
+
+              <a
+                href={`https://line.me/R/share/text?text=${encodeURIComponent(
+                  `🎬 動画ガチャで「${v.title}」が当たったよ！ ${v.affiliate_url} #動画ガチャ #おすすめAV https://dmm-affi-site.vercel.app/`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex-1 mt-4 inline-flex items-center justify-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+              >
+                <img src="/LINE_Brand_icon.png" alt="LINEで共有" class="h-6 w-6 mr-2" />
+                <span>LINEで送る</span>
+              </a>
+            </div>
           </Card>
         {/each}
       </div>
