@@ -10,8 +10,8 @@
   
   let products: any[] = [];
 
-  onMount(async () => {
-    const { url } = get(page);
+  const fetchProducts = async () => {
+    const { url } = get(page); // 現在のURLからbulkパラメータを判定
     const isBulk = url.searchParams.get('bulk') === '10';
 
     const endpoint = isBulk
@@ -21,7 +21,14 @@
     const res = await fetch(endpoint);
     const data = await res.json();
     products = Array.isArray(data) ? data : [data];
-  });
+  };
+
+  onMount(fetchProducts);
+
+  const handleRetry = () => {
+    products = []; // ローディング表示に戻す
+    fetchProducts();
+  };
 
   const getShareText = (product: any) => {
     const displayTitle = product.title.length > 80 ? product.title.substring(0, 80) + '...' : product.title;
@@ -91,7 +98,15 @@
           </a>
         </div>
 
-        <a href="/" class="text-blue-400 hover:underline">🔁 トップに戻る</a>
+        <div class="mt-8 flex flex-col gap-4">
+          <button
+            on:click={handleRetry}
+            class="w-full bg-red-600 text-white font-bold py-3 rounded-full hover:bg-red-700 transition shadow-lg transform hover:scale-105"
+          >
+            🎯 もう一度引く
+          </button>
+          <a href="/" class="text-blue-400 hover:underline">🔁 トップに戻る</a>
+        </div>
       </Card>
     </div>
 
@@ -141,8 +156,14 @@
         {/each}
       </div>
 
-      <div class="text-center mt-10">
-        <a href="/" class="text-blue-400 hover:underline">🔁 トップに戻る</a>
+      <div class="max-w-xs mx-auto text-center mt-10 flex flex-col gap-4">
+        <button
+          on:click={handleRetry}
+          class="w-full bg-red-600 text-white font-bold py-3 rounded-full hover:bg-red-700 transition shadow-lg transform hover:scale-105"
+        >
+          🎯 もう一度 10 連を引く
+        </button>
+        <a href="/" class="text-blue-400 hover:underline text-lg">🔁 トップに戻る</a>
       </div>
     </div>
   {/if}
