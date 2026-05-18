@@ -8,17 +8,22 @@
   let video = null;
   let isLoadingVideo = true;
 
-  onMount(async () => {
+  const fetchRandomVideo = async () => {
     try {
+      isLoadingVideo = true; // ローディング状態を開始
       const res = await fetch(`${PUBLIC_API_BASE}/videos/random-one/`);
       video = await res.json();
       isLoadingVideo = false;
     } catch (error) {
       console.error("動画データの取得に失敗しました:", error);
       isLoadingVideo = false;
+      video = null; // エラー時は動画をクリア
     }
-  });
+  };
 
+  onMount(fetchRandomVideo);
+
+  // ガチャを回すボタンは別のページに遷移するため、既存のまま
   async function rollGacha(count) {
     const isBulk = count === 10;
     await goto(`/video-gacha-result${isBulk ? '?bulk=10' : ''}`);
@@ -56,6 +61,14 @@
 
 <div class="mt-6 text-center">
   <button
+    on:click={fetchRandomVideo}
+    class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200"
+  >
+    🎬 別の動画を見る
+  </button>
+</div>
+<div class="mt-6 text-center">
+  <button
     on:click={() => rollGacha(1)}
     class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
   >
@@ -74,4 +87,3 @@
   <DmmWidget dataId="043481a98d238feacca4c97e7b47d21b" />
   <DmmBannerWidget affiliate_id="honebuto-001" banner_id="1209_300_250" />
 </div>
-
