@@ -134,6 +134,16 @@
                 <img src="/logo.svg" alt="Xで共有" class="h-6 w-6 mr-2" />
                 <span>ツイート</span>
               </a>
+
+            <a
+              href={`https://line.me/R/share/text?text=${encodeURIComponent(getShareText(p))}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex-1 mt-4 inline-flex items-center justify-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+            >
+              <img src="/LINE_Brand_icon.png" alt="LINEで共有" class="h-6 w-6 mr-2" />
+              <span>LINEで送る</span>
+            </a>
             </div>
           </Card>
         {/each}
