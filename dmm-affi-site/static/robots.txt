@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://dmm-affi-site.vercel.app/sitemap.xml
