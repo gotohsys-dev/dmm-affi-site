@@ -62,7 +62,7 @@
 </script>
 
 <div class="text-center p-4">
-  <h1 class="text-2xl font-bold mb-4">🎯 女優ガチャ</h1>
+  <h1 class="text-2xl font-bold mb-4">🎯 女優ガチャ(※開発中)</h1>
   <p class="mb-6">人気女優から新人までランダムで表示(画面更新すると表示が変わります☆)</p>
 </div>
 
