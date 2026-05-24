@@ -32,7 +32,7 @@
 
   const getShareText = (product: any) => {
     const displayTitle = product.title.length > 80 ? product.title.substring(0, 80) + '...' : product.title;
-    return `🎯 エ〇本ガチャで「${displayTitle}」が当たったよ！ ${product.affiliate_url} 毎日エ〇本ガチャ https://dmm-affi-site.vercel.app/fanzabook #FANZAブックス`;
+    return `🎯 ガチャで「${displayTitle}」が当たったよ！ ${product.affiliate_url} 毎日エ〇本ガチャ https://dmm-affi-site.vercel.app/fanzabook #FANZAブックス`;
   };
 </script>
 

@@ -5,7 +5,7 @@
       <a href="/" class="px-4 hover:underline">AVガチャ</a>
       <a href="/dojin" class="px-4 hover:underline">同人ガチャ</a>
       <a href="/fanzabook" class="px-4 hover:underline">エ〇本ガチャ</a>
-      <a href="/videos" class="px-4 hover:underline">動画ガチャ</a>
+      <a href="/actress" class="px-4 hover:underline">女優ガチャ</a>
     </div>
   </nav>
 </header>
