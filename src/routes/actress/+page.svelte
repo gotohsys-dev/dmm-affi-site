@@ -14,7 +14,8 @@
   onMount(async () => {
     try {
       const res = await fetch(`${PUBLIC_API_BASE}/actress/random/`); 
-      actresses = await res.json();
+      const data = await res.json();
+      actresses = data.filter(a => a.image_url);
 
       if (actresses.length > 0) {
         const img = new Image();
