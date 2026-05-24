@@ -1,147 +1,173 @@
-<script>
+<script lang="ts">
+  import Card from '$lib/Card.svelte';
+  import { page } from '$app/stores';
   import { onMount } from 'svelte';
-  import { base } from '$app/paths';
+  import { get } from 'svelte/store';
+  import { PUBLIC_API_BASE } from '$env/static/public';
+  import DmmWidget from '$lib/DmmWidget.svelte';
+  import DmmBannerWidget from '$lib/DmmBannerWidget.svelte';
+  
+  let products: any[] = [];
 
-  let product = $state(null);
-  let loading = $state(true);
-  let error = $state(null);
+  const fetchProducts = async () => {
+    const { url } = get(page);
+    const isBulk = url.searchParams.get('bulk') === '10';
 
-  onMount(async () => {
-    try {
-      // APIのベースURLは環境に合わせて調整してください。ここでは /api/dmm/ 配下と想定
-      const res = await fetch('/api/dmm/fanzabook/random-one/');
-      if (!res.ok) throw new Error('作品の取得に失敗しました');
-      product = await res.json();
-    } catch (e) {
-      error = e.message;
-    } finally {
-      loading = false;
-    }
-  });
+    // 電子書籍用のエンドポイントを指定
+    const endpoint = isBulk
+      ? `${PUBLIC_API_BASE}/fanzabook/random/`
+      : `${PUBLIC_API_BASE}/fanzabook/random-one/`;
 
-  const getRarityClass = (rarity) => {
-    if (rarity === 'Uレア') return 'u-rare';
-    if (rarity === 'Sレア') return 's-rare';
-    if (rarity === 'レア') return 'rare';
-    return 'normal';
+    const res = await fetch(endpoint);
+    const data = await res.json();
+    products = Array.isArray(data) ? data : [data];
+  };
+
+  onMount(fetchProducts);
+
+  const handleRetry = () => {
+    products = []; // ローディング表示に戻す
+    fetchProducts();
+  };
+
+  const getShareText = (product: any) => {
+    const displayTitle = product.title.length > 80 ? product.title.substring(0, 80) + '...' : product.title;
+    return `🎯 エ〇本ガチャで「${displayTitle}」が当たったよ！ ${product.affiliate_url} 毎日エ〇本ガチャ https://dmm-affi-site.vercel.app/fanzabook #FANZAブックス`;
   };
 </script>
 
-<div class="container">
-  {#if loading}
-    <div class="status-msg">
-      <div class="spinner"></div>
-      <p>ガチャを回しています...</p>
-    </div>
-  {:else if error}
-    <div class="status-msg error">
-      <p>{error}</p>
-      <a href="{base}/fanzabook" class="back-link">トップに戻る</a>
-    </div>
-  {:else if product}
-    <div class="result-card">
-      <div class="rarity-badge {getRarityClass(product.rarity)}">
-        {product.rarity}
-      </div>
+<style>
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .spinner::before {
+    content: '🎯';
+    display: inline-block;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+  }
+</style>
 
-      <div class="image-container">
-        <img src={product.image_url} alt={product.title} />
-      </div>
+{#if products.length === 0}
+  <div class="text-center text-white py-10">
+    <span class="spinner">エ〇本ガチャを回しています...</span>
+  </div>
+{:else}
+  {#if products.length === 1}
+    <div class="flex justify-center items-center min-h-screen">
+      <Card maxWidth="max-w-lg">
+        <h2 class="text-2xl font-bold mb-4">🎯 エ〇本ガチャ結果</h2>
 
-      <div class="content">
-        <h2 class="title">{product.title}</h2>
-        
-        <div class="meta">
-          {#if product.author}<p><strong>著者:</strong> {product.author}</p>{/if}
-          {#if product.maker}<p><strong>出版社:</strong> {product.maker}</p>{/if}
-          {#if product.rank}<p><strong>ランキング:</strong> {product.rank}位</p>{/if}
+        <a href={products[0].affiliate_url} target="_blank" rel="sponsored">
+          <img
+            src={products[0].image_url}
+            alt={products[0].title}
+            class="mx-auto object-contain w-[512px] h-[384px] max-w-full rounded-lg shadow mb-4"
+          />
+        </a>
+
+        <a href={products[0].affiliate_url} target="_blank" rel="sponsored">
+          <p class="text-lg font-semibold mb-6">{products[0].rarity || 'N'}:{products[0].title}</p>
+        </a>
+
+        <div class="text-sm text-gray-400 mb-4">
+          {#if products[0].author}<p>著者: {products[0].author}</p>{/if}
+          {#if products[0].maker}<p>出版社: {products[0].maker}</p>{/if}
         </div>
 
-        <div class="actions">
-          <a href={product.affiliate_url} target="_blank" rel="noopener noreferrer" class="btn primary">
-            商品ページへ (FANZA)
+        <div class="flex gap-2 justify-center items-center">
+          <a
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText(products[0]))}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex-1 mt-4 inline-flex items-center justify-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+          >
+            <img src="/logo.svg" alt="Xで共有" class="h-6 w-6 mr-2" />
+            <span>ツイート</span>
           </a>
-          {#if product.tachiyomi_url}
-            <a href={product.tachiyomi_url} target="_blank" rel="noopener noreferrer" class="btn secondary">
-              立ち読みする
-            </a>
-          {/if}
-          <button onclick={() => window.location.reload()} class="btn text">
-            もう一度引く
-          </button>
+
+          <a
+            href={`https://line.me/R/share/text?text=${encodeURIComponent(getShareText(products[0]))}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex-1 mt-4 inline-flex items-center justify-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+          >
+            <img src="/LINE_Brand_icon.png" alt="LINEで共有" class="h-6 w-6 mr-2" />
+            <span>LINEで送る</span>
+          </a>
         </div>
-      </div>
+
+        <div class="mt-8 flex flex-col gap-4">
+          <button
+            on:click={handleRetry}
+            class="w-full bg-red-600 text-white font-bold py-3 rounded-full hover:bg-red-700 transition shadow-lg transform hover:scale-105"
+          >
+            🎯 もう一度引く
+          </button>
+          <a href="/fanzabook" class="text-blue-400 hover:underline">🔁 ガチャトップに戻る</a>
+        </div>
+      </Card>
     </div>
-    <div class="footer-actions">
-      <a href="{base}/fanzabook" class="back-link">ガチャトップへ</a>
+
+  {:else}
+    <div class="min-h-screen py-10 bg-gradient-to-br from-gray-900 to-black">
+      <h2 class="text-3xl font-bold text-center text-white mb-8">🎯 電子書籍 10 連ガチャ結果</h2>
+
+      <div class="grid gap-6 px-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {#each products as p}
+          <Card maxWidth="max-w-xs">
+            <a href={p.affiliate_url} target="_blank" rel="sponsored">
+              <img
+                src={p.image_url}
+                alt={p.title}
+                class="object-contain w-full h-48 rounded-lg shadow mb-3"
+              />
+            </a>
+
+            <a href={p.affiliate_url} target="_blank" rel="sponsored">
+              <p class="text-sm font-semibold line-clamp-2">{p.rarity || 'N'}:{p.title}</p>
+            </a>
+
+            <div class="flex gap-2">
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText(p))}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex-1 mt-4 inline-flex items-center justify-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+              >
+                <img src="/logo.svg" alt="Xで共有" class="h-6 w-6 mr-2" />
+                <span>ツイート</span>
+              </a>
+
+            <a
+              href={`https://line.me/R/share/text?text=${encodeURIComponent(getShareText(p))}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex-1 mt-4 inline-flex items-center justify-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+            >
+              <img src="/LINE_Brand_icon.png" alt="LINEで共有" class="h-6 w-6 mr-2" />
+              <span>LINEで送る</span>
+            </a>
+            </div>
+          </Card>
+        {/each}
+      </div>
+
+      <div class="max-w-xs mx-auto text-center mt-10 flex flex-col gap-4">
+        <button
+          on:click={handleRetry}
+          class="w-full bg-red-600 text-white font-bold py-3 rounded-full hover:bg-red-700 transition shadow-lg transform hover:scale-105"
+        >
+          🎯 もう一度 10 連を引く
+        </button>
+        <a href="/fanzabook" class="text-blue-400 hover:underline text-lg">🔁 ガチャトップに戻る</a>
+      </div>
     </div>
   {/if}
+{/if}
+
+<div class="my-6 flex flex-wrap justify-center items-center gap-4">
+  <DmmWidget dataId="043481a98d238feacca4c97e7b47d21b" />
+  <DmmBannerWidget affiliate_id="honebuto-001" banner_id="1526_300_250" />
 </div>
-
-<style>
-  .container {
-    max-width: 500px;
-    margin: 30px auto;
-    padding: 0 15px;
-    font-family: sans-serif;
-  }
-  .status-msg { text-align: center; margin-top: 100px; }
-  .result-card {
-    background: white;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    position: relative;
-    border: 1px solid #eee;
-  }
-  .rarity-badge {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-weight: bold;
-    color: white;
-    z-index: 10;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  }
-  .u-rare { background: linear-gradient(45deg, #f1c40f, #e67e22); }
-  .s-rare { background: linear-gradient(45deg, #9b59b6, #8e44ad); }
-  .rare { background: linear-gradient(45deg, #3498db, #2980b9); }
-  .normal { background: #95a5a6; }
-
-  .image-container {
-    width: 100%;
-    background: #f0f0f0;
-    display: flex;
-    justify-content: center;
-  }
-  .image-container img { max-width: 100%; height: auto; display: block; }
-
-  .content { padding: 25px; }
-  .title { font-size: 1.25rem; margin: 0 0 15px 0; line-height: 1.5; color: #222; }
-  .meta { margin-bottom: 25px; font-size: 0.9rem; color: #666; }
-  .meta p { margin: 4px 0; }
-
-  .actions { display: flex; flex-direction: column; gap: 12px; }
-  .btn {
-    padding: 14px;
-    border-radius: 8px;
-    text-align: center;
-    text-decoration: none;
-    font-weight: bold;
-    transition: opacity 0.2s;
-    cursor: pointer;
-    border: none;
-  }
-  .btn:hover { opacity: 0.9; }
-  .primary { background: #ff4757; color: white; }
-  .secondary { background: #2f3542; color: white; }
-  .text { background: transparent; color: #57606f; }
-  
-  .footer-actions { text-align: center; margin-top: 25px; }
-  .back-link { color: #57606f; text-decoration: none; font-size: 0.9rem; }
-  .back-link:hover { text-decoration: underline; }
-  .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #ff4757; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
-  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-</style>
