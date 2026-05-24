@@ -139,6 +139,6 @@
 <style>
   /* メインページの雰囲気に合わせた最小限のスタイル */
   :global(body) {
-    @apply bg-gray-50;
+    background-color: #f9fafb; /* bg-gray-50 相当の色 */
   }
 </style>
