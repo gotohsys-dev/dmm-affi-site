@@ -6,6 +6,7 @@
 
   let actress = null;
   let loading = true;
+  let products = [];
   let error = null;
 
   async function fetchActress() {
@@ -17,6 +18,11 @@
         throw new Error('女優データの取得に失敗しました');
       }
       actress = await response.json();
+
+      // 女優の作品を取得
+      const productRes = await fetch(`${PUBLIC_API_BASE}/actress/products/?name=${encodeURIComponent(actress.name)}`);
+      products = await productRes.json();
+
     } catch (e) {
       error = e.message;
     } finally {
@@ -81,6 +87,31 @@
               <a href={actress.list_url_mono} target="_blank" class="block w-full text-center bg-orange-500 text-white py-2 rounded font-bold hover:bg-orange-600">通販・DVDを見る</a>
             {/if}
           </div>
+      </div>
+    </div>
+
+    <!-- 作品ガチャ結果 -->
+    <div class="mt-12">
+      <h3 class="text-xl font-bold mb-6 text-center">🎥 {actress.name} の出演作品ガチャ結果</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+        {#each products as product}
+          <div class="bg-white rounded-lg shadow overflow-hidden border border-gray-100 flex flex-col">
+            <a href={product.affiliate_url} target="_blank" rel="noopener" class="relative group">
+              <img src={product.image_url} alt={product.title} class="w-full h-48 object-cover group-hover:opacity-90 transition" />
+              <div class="absolute top-0 right-0 m-1">
+                <span class="text-[10px] px-2 py-0.5 rounded-full font-bold text-white shadow-sm 
+                  {product.rarity === 'Uレア' ? 'bg-red-500' : 
+                   product.rarity === 'Sレア' ? 'bg-orange-500' : 
+                   product.rarity === 'レア' ? 'bg-blue-500' : 'bg-gray-500'}">
+                  {product.rarity}
+                </span>
+              </div>
+            </a>
+            <div class="p-2 flex-grow flex flex-col justify-between">
+              <p class="text-[10px] text-gray-600 line-clamp-2 h-8 mb-1">{product.title}</p>
+            </div>
+          </div>
+        {/each}
       </div>
     </div>
 

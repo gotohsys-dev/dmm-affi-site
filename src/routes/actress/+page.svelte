@@ -7,23 +7,25 @@
   import DmmBannerWidget from '$lib/DmmBannerWidget.svelte';
   import TwitterTimeline from '$lib/TwitterTimeline.svelte';
 
-  let actress = null;
+  let actresses = [];
+  let currentIndex = 0;
   let isLoadingImage = true;
 
   onMount(async () => {
     try {
-      // 現在のAPIは1件取得なので、ルーレットではなく1件表示仕様
       const res = await fetch(`${PUBLIC_API_BASE}/actress/random/`); 
-      actress = await res.json();
+      actresses = await res.json();
 
-      if (actress && actress.image_url) {
+      if (actresses.length > 0) {
         const img = new Image();
-        img.src = actress.image_url;
+        img.src = actresses[currentIndex].image_url;
         img.onload = () => {
           isLoadingImage = false;
+          rotate();
         };
         img.onerror = () => {
           isLoadingImage = false;
+          rotate();
         };
       } else {
         isLoadingImage = false;
@@ -33,6 +35,26 @@
       isLoadingImage = false;
     }
   });
+
+  function rotate() {
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % actresses.length;
+      isLoadingImage = true;
+      if (actresses.length > 0) {
+        const img = new Image();
+        img.src = actresses[currentIndex].image_url;
+        img.onload = () => {
+          isLoadingImage = false;
+        };
+        img.onerror = () => {
+          console.error("画像のロードに失敗しました:", actresses[currentIndex].image_url);
+          isLoadingImage = false;
+        };
+      } else {
+        isLoadingImage = false;
+      }
+    }, 1500);
+  }
 
   async function rollGacha() {
     await goto(`${base}/actress-gacha-result`);
@@ -45,7 +67,7 @@
 </div>
 
 <div class="text-center p-4">
-  {#if !actress}
+  {#if actresses.length === 0}
     <p class="text-xl text-gray-500">データ読み込み中...</p>
   {:else if isLoadingImage}
     <div class="flex items-center justify-center w-[512px] h-[384px] mx-auto bg-gray-200 rounded-lg shadow">
@@ -54,12 +76,12 @@
   {:else}
     <div class="relative inline-block">
       <img
-        src={actress.image_url}
-        alt={actress.name}
+        src={actresses[currentIndex].image_url}
+        alt={actresses[currentIndex].name}
         class="mx-auto object-contain w-[512px] h-[384px] max-w-full rounded-lg shadow"
       />
       <div class="absolute bottom-2 left-0 right-0 text-white bg-black/50 py-1">
-        {actress.name} ({actress.ruby})
+        {actresses[currentIndex].name} ({actresses[currentIndex].ruby})
       </div>
     </div>
   {/if}
