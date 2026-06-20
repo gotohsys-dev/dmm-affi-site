@@ -108,7 +108,12 @@
               </div>
             </a>
             <div class="p-2 flex-grow flex flex-col justify-between">
-              <p class="text-[10px] text-gray-600 line-clamp-2 h-8 mb-1">{product.title}</p>
+              <p class="text-[10px] text-gray-600 line-clamp-2 h-8 mb-1">
+                {#if product.is_sale}
+                  <span class="text-red-500 font-bold">【セール中】</span>
+                {/if}
+                {product.title}
+              </p>
             </div>
           </div>
         {/each}

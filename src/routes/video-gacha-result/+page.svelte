@@ -24,7 +24,8 @@
 
   const getShareText = (video: any) => {
     const displayTitle = video.title.length > 80 ? video.title.substring(0, 80) + '...' : video.title;
-    return `🎬 動画ガチャで「${displayTitle}」が当たったよ！ ${video.affiliate_url} #動画ガチャ #おすすめAV https://dmm-affi-site.vercel.app/`;
+    const prefix = video.is_sale ? '【セール中】' : '';
+    return `${prefix}🎬 動画ガチャで「${displayTitle}」が当たったよ！ ${video.affiliate_url} #動画ガチャ #おすすめAV https://dmm-affi-site.vercel.app/`;
   };
 </script>
 
@@ -52,7 +53,12 @@
         <h2 class="text-2xl font-bold mb-4">🎬 動画ガチャ結果</h2>
         <iframe src={videos[0].video_url} class="mx-auto object-contain w-[512px] h-[384px] max-w-full rounded-lg shadow mb-4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen title={videos[0].title}></iframe>
         <a href={videos[0].affiliate_url} target="_blank" rel="sponsored">
-          <p class="text-lg font-semibold mb-6">{videos[0].rarity}:{videos[0].title}</p>
+          <p class="text-lg font-semibold mb-6">
+            {#if videos[0].is_sale}
+              <span class="text-red-500 font-bold">【セール中】</span>
+            {/if}
+            {videos[0].rarity}:{videos[0].title}
+          </p>
         </a>
 
         <div class="flex gap-2 justify-center items-center">
@@ -89,7 +95,12 @@
           <Card maxWidth="max-w-xs">
             <iframe src={v.video_url} class="object-contain w-full h-48 rounded-lg shadow mb-3" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen title={v.title}></iframe>
             <a href={v.affiliate_url} target="_blank" rel="sponsored">
-              <p class="text-sm font-semibold line-clamp-2">{v.rarity}:{v.title}</p>
+              <p class="text-sm font-semibold line-clamp-2">
+                {#if v.is_sale}
+                  <span class="text-red-500 font-bold">【セール中】</span>
+                {/if}
+                {v.rarity}:{v.title}
+              </p>
             </a>
 
             <div class="flex gap-2">

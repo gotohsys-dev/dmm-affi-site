@@ -32,7 +32,8 @@
 
   const getShareText = (product: any) => {
     const displayTitle = product.title.length > 80 ? product.title.substring(0, 80) + '...' : product.title;
-    return `🎯 同人ガチャで「${displayTitle}」が当たったよ！ ${product.affiliate_url} 毎日同人ガチャ https://dmm-affi-site.vercel.app/dojin #おすすめ同人`;
+    const prefix = product.is_sale ? '【セール中】' : '';
+    return `${prefix}🎯 同人ガチャで「${displayTitle}」が当たったよ！ ${product.affiliate_url} 毎日同人ガチャ https://dmm-affi-site.vercel.app/dojin #おすすめ同人`;
   };
 </script>
 
@@ -68,7 +69,12 @@
         </a>
 
         <a href={products[0].affiliate_url} target="_blank" rel="sponsored">
-          <p class="text-lg font-semibold mb-6">{products[0].rarity || 'N'}:{products[0].title}</p>
+          <p class="text-lg font-semibold mb-6">
+            {#if products[0].is_sale}
+              <span class="text-red-500 font-bold">【セール中】</span>
+            {/if}
+            {products[0].rarity || 'N'}:{products[0].title}
+          </p>
         </a>
 
         <div class="flex gap-2 justify-center items-center">
@@ -121,7 +127,12 @@
             </a>
 
             <a href={p.affiliate_url} target="_blank" rel="sponsored">
-              <p class="text-sm font-semibold line-clamp-2">{p.rarity || 'N'}:{p.title}</p>
+              <p class="text-sm font-semibold line-clamp-2">
+                {#if p.is_sale}
+                  <span class="text-red-500 font-bold">【セール中】</span>
+                {/if}
+                {p.rarity || 'N'}:{p.title}
+              </p>
             </a>
 
             <div class="flex gap-2">
