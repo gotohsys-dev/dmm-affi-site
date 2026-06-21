@@ -1,133 +1,179 @@
-<script>
-  import { onMount } from "svelte";
-  import { goto } from '$app/navigation';
+<script lang="ts">
+  import Card from '$lib/Card.svelte';
+  import { page } from '$app/stores';
+  import { onMount } from 'svelte';
+  import { get } from 'svelte/store';
   import { PUBLIC_API_BASE } from '$env/static/public';
   import DmmWidget from '$lib/DmmWidget.svelte';
   import DmmBannerWidget from '$lib/DmmBannerWidget.svelte';
-  import TwitterTimeline from '$lib/TwitterTimeline.svelte';
+  
+  let products: any[] = [];
 
-  let products = [];
-  let currentIndex = 0;
-  let isLoadingImage = true;
+  const fetchProducts = async () => {
+    const { url } = get(page);
+    const isBulk = url.searchParams.get('bulk') === '10';
 
-  onMount(async () => {
-    try {
-      // 同人商品のランダムリストを取得
-      const res = await fetch(`${PUBLIC_API_BASE}/doujin/random/`);
-      products = await res.json();
+    // 同人商品用のエンドポイントを指定
+    const endpoint = isBulk
+      ? `${PUBLIC_API_BASE}/doujin/random/`
+      : `${PUBLIC_API_BASE}/doujin/random-one/`;
 
-      if (products.length > 0) {
-        const img = new Image();
-        img.src = products[currentIndex].image_url;
-        img.onload = () => {
-          isLoadingImage = false;
-          rotate();
-        };
-        img.onerror = () => {
-          console.error("画像のロードに失敗しました:", products[currentIndex].image_url);
-          isLoadingImage = false;
-          rotate();
-        };
-      } else {
-        isLoadingImage = false;
-      }
+    const res = await fetch(endpoint);
+    const data = await res.json();
+    products = Array.isArray(data) ? data : [data];
+  };
 
-    } catch (error) {
-      console.error("同人データの取得に失敗しました:", error);
-      isLoadingImage = false;
-    }
-  });
+  onMount(fetchProducts);
 
-  // 作品ルーレット
-  function rotate() {
-    setInterval(() => {
-      currentIndex = (currentIndex + 1) % products.length;
-      isLoadingImage = true;
-      if (products.length > 0) {
-        const img = new Image();
-        img.src = products[currentIndex].image_url;
-        img.onload = () => {
-          isLoadingImage = false;
-        };
-        img.onerror = () => {
-          console.error("画像のロードに失敗しました:", products[currentIndex].image_url);
-          isLoadingImage = false;
-        };
-      } else {
-        isLoadingImage = false;
-      }
-    }, 1500);
-  }
+  const handleRetry = () => {
+    products = []; // ローディング表示に戻す
+    fetchProducts();
+  };
 
-  // 同人ガチャを回す
-  async function rollGacha(count) {
-    const isBulk = count === 10;
-    await goto(`/dojin-gacha-result${isBulk ? '?bulk=10' : ''}`);
-  }
+  const getShareText = (product: any) => {
+    const displayTitle = product.title.length > 80 ? product.title.substring(0, 80) + '...' : product.title;
+    const prefix = product.is_sale ? '【セール中】' : '';
+    return `${prefix}🎯 同人ガチャで「${displayTitle}」が当たったよ！ ${product.affiliate_url} 毎日同人ガチャ https://dmm-affi-site.vercel.app/dojin #おすすめ同人`;
+  };
 </script>
 
-<div class="text-center p-4">
-  <h1 class="text-2xl font-bold mb-4">🎯 毎日同人ガチャ</h1>
-  <p class="mb-6">人気同人作品からランダムで表示(画面更新すると表示が変わります☆)</p>
-</div>
+<style>
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .spinner::before {
+    content: '🎯';
+    display: inline-block;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+  }
+</style>
 
-<div class="text-center p-4">
-  {#if products.length === 0}
-    <p class="text-xl text-gray-500">商品データを読み込み中...</p>
-  {:else if isLoadingImage}
-    <div class="flex items-center justify-center w-[512px] h-[384px] mx-auto bg-gray-200 rounded-lg shadow">
-      <p class="text-xl text-gray-700">画像読み込み中...</p>
+{#if products.length === 0}
+  <div class="text-center text-white py-10">
+    <span class="spinner">同人ガチャを回しています...</span>
+  </div>
+{:else}
+  {#if products.length === 1}
+    <div class="flex justify-center items-center min-h-screen">
+      <Card maxWidth="max-w-lg">
+        <h2 class="text-2xl font-bold mb-4">🎯 同人ガチャ結果</h2>
+
+        <a href={products[0].affiliate_url} target="_blank" rel="sponsored">
+          <img
+            src={products[0].image_url}
+            alt={products[0].title}
+            class="mx-auto object-contain w-[512px] h-[384px] max-w-full rounded-lg shadow mb-4"
+          />
+        </a>
+
+        <a href={products[0].affiliate_url} target="_blank" rel="sponsored">
+          <p class="text-lg font-semibold mb-6">
+            {#if products[0].is_sale}
+              <span class="text-red-500 font-bold">【セール中】</span>
+            {/if}
+            {products[0].rarity || 'N'}:{products[0].title}
+          </p>
+        </a>
+
+        <div class="flex gap-2 justify-center items-center">
+          <a
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText(products[0]))}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex-1 mt-4 inline-flex items-center justify-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+          >
+            <img src="/logo.svg" alt="Xで共有" class="h-6 w-6 mr-2" />
+            <span>ツイート</span>
+          </a>
+
+          <a
+            href={`https://line.me/R/share/text?text=${encodeURIComponent(getShareText(products[0]))}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex-1 mt-4 inline-flex items-center justify-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+          >
+            <img src="/LINE_Brand_icon.png" alt="LINEで共有" class="h-6 w-6 mr-2" />
+            <span>LINEで送る</span>
+          </a>
+        </div>
+
+        <div class="mt-8 flex flex-col gap-4">
+          <button
+            on:click={handleRetry}
+            class="w-full bg-red-600 text-white font-bold py-3 rounded-full hover:bg-red-700 transition shadow-lg transform hover:scale-105"
+          >
+            🎯 もう一度引く
+          </button>
+          <a href="/" class="text-blue-400 hover:underline">🔁 トップに戻る</a>
+        </div>
+      </Card>
     </div>
+
   {:else}
-    <a href={products[currentIndex].affiliate_url} target="_blank" rel="noopener">
-      <img
-        src={products[currentIndex].image_url}
-        alt="同人ジャケット"
-        class="mx-auto object-contain w-[512px] h-[384px] max-w-full rounded-lg shadow"
-      />
-    </a>
+    <div class="min-h-screen py-10 bg-gradient-to-br from-gray-900 to-black">
+      <h2 class="text-3xl font-bold text-center text-white mb-8">🎯 同人 10 連ガチャ結果</h2>
+
+      <div class="grid gap-6 px-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {#each products as p}
+          <Card maxWidth="max-w-xs">
+            <a href={p.affiliate_url} target="_blank" rel="sponsored">
+              <img
+                src={p.image_url}
+                alt={p.title}
+                class="object-contain w-full h-48 rounded-lg shadow mb-3"
+              />
+            </a>
+
+            <a href={p.affiliate_url} target="_blank" rel="sponsored">
+              <p class="text-sm font-semibold line-clamp-2">
+                {#if p.is_sale}
+                  <span class="text-red-500 font-bold">【セール中】</span>
+                {/if}
+                {p.rarity || 'N'}:{p.title}
+              </p>
+            </a>
+
+            <div class="flex gap-2">
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText(p))}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex-1 mt-4 inline-flex items-center justify-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+              >
+                <img src="/logo.svg" alt="Xで共有" class="h-6 w-6 mr-2" />
+                <span>ツイート</span>
+              </a>
+
+            <a
+              href={`https://line.me/R/share/text?text=${encodeURIComponent(getShareText(p))}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex-1 mt-4 inline-flex items-center justify-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+            >
+              <img src="/LINE_Brand_icon.png" alt="LINEで共有" class="h-6 w-6 mr-2" />
+              <span>LINEで送る</span>
+            </a>
+            </div>
+          </Card>
+        {/each}
+      </div>
+
+      <div class="max-w-xs mx-auto text-center mt-10 flex flex-col gap-4">
+        <button
+          on:click={handleRetry}
+          class="w-full bg-red-600 text-white font-bold py-3 rounded-full hover:bg-red-700 transition shadow-lg transform hover:scale-105"
+        >
+          🎯 もう一度 10 連を引く
+        </button>
+        <a href="/" class="text-blue-400 hover:underline text-lg">🔁 トップに戻る</a>
+      </div>
+    </div>
   {/if}
-</div>
-
-<div class="mt-6 text-center">
-  <button
-    on:click={() => rollGacha(1)}
-    class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
-  >
-    ガチャを回す
-  </button>
-
-  <button
-    on:click={() => rollGacha(10)}
-    class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
-  >
-    10連ガチャ
-  </button>
-</div>
+{/if}
 
 <div class="my-6 flex flex-wrap justify-center items-center gap-4">
-  <DmmWidget dataId="7466dd6057bbc4243631a4b74a3580da" />
+  <DmmWidget dataId="043481a98d238feacca4c97e7b47d21b" />
   <DmmBannerWidget affiliate_id="honebuto-001" banner_id="1526_300_250" />
-</div>
-
-<section class="max-w-2xl mx-auto mt-12 p-6 bg-white/80 backdrop-blur-md rounded-xl shadow-lg text-gray-800">
-  <h2 class="text-2xl font-bold mb-4 text-center">このサイトについて</h2>
-  <p class="mb-3 leading-relaxed">
-    このサイトは、DMMアフィリエイトの公式APIを活用して、毎日違った同人作品に出会える「ガチャ機能」を提供しています。
-    ボタンをクリックすると、ランダムに選ばれた作品が表示され、気になる作品は画像クリックでFANZA同人の公式ページからすぐに購入・視聴が可能です。
-    DMMのリンクのみしかありませんので、安心・安全です。
-  </p>
-  <p class="mb-3 leading-relaxed">
-    同人ガチャを回すだけのサイトですが、今後もコンテンツを拡充予定です。
-  </p>
-  <p class="text-sm text-gray-600">
-    ※ 当サイトはDMMアフィリエイトプログラムに参加しており、リンク先の商品を購入されると、運営者に報酬が発生することがあります。
-  </p>
-</section>
-
-<div class="my-8">
-  <h2 class="text-2xl font-bold text-center mb-4">X (Twitter)</h2>
-  <div class="max-w-xl mx-auto">
-    <TwitterTimeline />
-  </div>
 </div>
