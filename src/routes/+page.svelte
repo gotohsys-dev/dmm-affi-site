@@ -79,21 +79,25 @@
 <div class="text-center p-4">
   {#if products.length === 0}
     <p class="text-xl text-gray-500">商品データを読み込み中...</p>
-  {:else if isLoadingImage}
-    <div class="flex items-center justify-center w-[512px] h-[384px] mx-auto bg-gray-200 rounded-lg shadow">
-      <p class="text-xl text-gray-700">画像読み込み中...</p>
-    </div>
   {:else}
-    <a href={products[currentIndex].affiliate_url} target="_blank" rel="noopener">
-      <img
-        src={products[currentIndex].image_url}
-        alt="AVジャケット"
-        class="mx-auto object-contain w-[512px] h-[384px] max-w-full rounded-lg shadow"
-      />
-    </a>
+    <div class="relative mx-auto aspect-[4/3] w-full max-w-[512px] bg-gray-200 rounded-lg shadow overflow-hidden">
+      
+      {#if isLoadingImage}
+        <div class="absolute inset-0 flex items-center justify-center bg-gray-200/80 backdrop-blur-sm z-10">
+          <p class="text-xl text-gray-700">画像読み込み中...</p>
+        </div>
+      {/if}
+
+      <a href={products[currentIndex].affiliate_url} target="_blank" rel="noopener" class="w-full h-full flex items-center justify-center">
+        <img
+          src={products[currentIndex].image_url}
+          alt="AVジャケット"
+          class="w-full h-full object-contain"
+        />
+      </a>
+    </div>
   {/if}
 </div>
-
 
 <div class="mt-6 text-center">
   <button
