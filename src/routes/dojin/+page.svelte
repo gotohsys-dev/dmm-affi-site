@@ -13,7 +13,7 @@
   onMount(async () => {
     try {
       // 同人商品のランダムリストを取得
-      const res = await fetch(`${PUBLIC_API_BASE}/dojin/random/`);
+      const res = await fetch(`${PUBLIC_API_BASE}/doujin/random/`);
       products = await res.json();
 
       if (products.length > 0) {
