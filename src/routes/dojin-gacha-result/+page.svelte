@@ -33,7 +33,7 @@
   const getShareText = (product: any) => {
     const displayTitle = product.title.length > 80 ? product.title.substring(0, 80) + '...' : product.title;
     const prefix = product.is_sale ? '【セール中】' : '';
-    return `${prefix}🎯 同人ガチャで「${displayTitle}」が当たったよ！ ${product.affiliate_url} 毎日同人ガチャ https://dmm-affi-site.vercel.app/dojin #おすすめ同人`;
+    return `${prefix}🎯 同人ガチャで「${displayTitle}」が当たったよ！ ${product.affiliate_url} 毎日同人ガチャ https://dmm-affi-site.vercel.app/dojin #おすすめ同人 #FANZA`;
   };
 </script>
 

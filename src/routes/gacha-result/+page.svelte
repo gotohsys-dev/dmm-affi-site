@@ -33,7 +33,7 @@
   const getShareText = (product: any) => {
     const displayTitle = product.title.length > 80 ? product.title.substring(0, 80) + '...' : product.title;
     const prefix = product.is_sale ? '【セール中】' : '';
-    return `${prefix}🎯 ガチャで「${displayTitle}」が当たったよ！ ${product.affiliate_url} 毎日エ〇ガチャhttps://dmm-affi-site.vercel.app/ #おすすめAV #推し女優`;
+    return `${prefix}🎯 ガチャで「${displayTitle}」が当たったよ！ ${product.affiliate_url} 毎日エ〇ガチャhttps://dmm-affi-site.vercel.app/ #おすすめAV #推し女優 #FANZA`;
   };
 </script>
 
