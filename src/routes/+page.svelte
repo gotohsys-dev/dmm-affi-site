@@ -108,7 +108,7 @@
 <!-- FANZAキャッチャー -->
 <div class="my-4 flex justify-center">
   <a
-    href="https://catch.dmm.co.jp/?_gl=1*ogcs70*rieSh3Ee_ga*MzAyMjQzNjU2LjE3NzYyODIyNDI.*rieSh3Ee_ga_KQYE0DE5JW*czE3ODIzMDI5MDQkbzEwMiRnMSR0MTc4MjMwNDUzMiRqNjAkbDAkaDEzNjI5ODA5MzI.*_fplc*OGJudGZxcnl4U2psWk9iQzFEbCUyRlR2cjE0ZWUwTEt6VmxQaWl3UmVBb3Ftb2IwVVE2YXIlMkZzRE1CYiUyQlgwbkNiMEVNWGM4WVdzZXh2VFVHJTJGVU9GRWxKWHFiaXBpWkR0ZkxDRmoyNWZZdVdJc2NoeUlTSjBBViUyRmNLUlRmSXklMkZBJTNEJTNE"
+    href="https://catch.dmm.co.jp/?affiliate_id=honebuto-001"
     target="_blank"
     rel="noopener noreferrer"
   >
