@@ -138,6 +138,7 @@
 		class="widget-banner-script"
 		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=1942_300_250"
 	></script>
+	<ins class="widget-banner"></ins><script class="widget-banner-script" src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=1390_300_250"></script>
 </div>
 
 <section
