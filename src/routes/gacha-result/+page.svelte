@@ -103,6 +103,10 @@
             <span>LINEで送る</span>
           </a>
         </div>
+        
+        <div class="mt-8 flex flex-col gap-4">
+            <ins class="dmm-widget-placement" data-id="de5dc205174a04f3660f97e836b86801" style="background:transparent"></ins><script src="https://widget-view.dmm.co.jp/js/placement.js" class="dmm-widget-scripts" data-id="de5dc205174a04f3660f97e836b86801"></script>
+        </div>
 
         <div class="mt-8 flex flex-col gap-4">
           <button
