@@ -107,7 +107,7 @@
 
 <!-- FANZAキャッチャー -->
 <div class="my-4 flex justify-center">
-	<DmmBannerWidget affiliate_id="honebuto-001" banner_id="1329_640_100" />
+	<ins class="widget-banner"></ins><script class="widget-banner-script" src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=1329_640_100"></script>
 </div>
 
 <div class="mt-6 text-center">
