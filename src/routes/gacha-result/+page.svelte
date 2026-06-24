@@ -168,6 +168,7 @@
       </div>
 
       <div class="max-w-xs mx-auto text-center mt-10 flex flex-col gap-4">
+        <ins class="dmm-widget-placement" data-id="7466dd6057bbc4243631a4b74a3580da" style="background:transparent"></ins><script src="https://widget-view.dmm.co.jp/js/placement.js" class="dmm-widget-scripts" data-id="7466dd6057bbc4243631a4b74a3580da"></script>
         <button
           on:click={handleRetry}
           class="w-full bg-red-600 text-white font-bold py-3 rounded-full hover:bg-red-700 transition shadow-lg transform hover:scale-105"
