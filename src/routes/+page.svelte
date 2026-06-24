@@ -108,7 +108,7 @@
 <!-- FANZAキャッチャー -->
 <div class="my-4 flex justify-center">
   <a
-    href="honebuto-001"
+    href="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001"
     target="_blank"
     rel="noopener noreferrer"
   >
