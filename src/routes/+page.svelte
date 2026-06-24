@@ -107,7 +107,10 @@
 
 <!-- FANZAキャッチャー -->
 <div class="my-4 flex justify-center">
-	<ins class="widget-banner"></ins><script class="widget-banner-script" src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=1329_640_100"></script>
+	<ins class="widget-banner"></ins><script
+		class="widget-banner-script"
+		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=1329_640_100"
+	></script>
 </div>
 
 <div class="mt-6 text-center">
@@ -130,7 +133,11 @@
 	<!-- <DmmWidget dataId="043481a98d238feacca4c97e7b47d21b" /> -->
 	<!-- <DmmBannerWidget affiliate_id="honebuto-001" banner_id="1209_300_250" /> -->
 	<DmmWidget dataId="7466dd6057bbc4243631a4b74a3580da" />
-	<DmmBannerWidget affiliate_id="honebuto-001" banner_id="1526_300_250" />
+	<!-- <DmmBannerWidget affiliate_id="honebuto-001" banner_id="1526_300_250" /> -->
+	<ins class="widget-banner"></ins><script
+		class="widget-banner-script"
+		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=1942_300_250"
+	></script>
 </div>
 
 <section
