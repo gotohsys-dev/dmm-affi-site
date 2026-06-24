@@ -107,18 +107,7 @@
 
 <!-- FANZAキャッチャー -->
 <div class="my-4 flex justify-center">
-  <a
-    href="https://catch.dmm.co.jp/?affiliate_id=honebuto-001"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <img
-      src="https://pics.dmm.co.jp/af/a_onkure3/640_100.png"
-      alt="アダルトな景品が獲得できる"
-      width="640"
-      height="100"
-    />
-  </a>
+	<DmmBannerWidget affiliate_id="honebuto-001" banner_id="1329_640_100" />
 </div>
 
 <div class="mt-6 text-center">
