@@ -60,16 +60,16 @@
       <Card maxWidth="max-w-lg">
         <h2 class="text-2xl font-bold mb-4">🎯 同人ガチャ結果</h2>
 
-        <a href={products[0].affiliate_url} target="_blank" rel="sponsored">
+        <a href={products[0].affiliate_url} target="_blank" rel="sponsored" class="block group relative overflow-hidden rounded-lg">
           <img
             src={products[0].image_url}
             alt={products[0].title}
-            class="mx-auto object-contain w-[512px] h-[384px] max-w-full rounded-lg shadow mb-4"
+            class="mx-auto object-contain w-[512px] h-[384px] max-w-full rounded-lg shadow mb-4 transition-transform duration-300 group-hover:scale-105"
           />
         </a>
 
         <a href={products[0].affiliate_url} target="_blank" rel="sponsored">
-          <p class="text-lg font-semibold mb-6">
+          <p class="text-lg font-semibold mb-4 hover:text-red-400 transition">
             {#if products[0].is_sale}
               <span class="text-red-500 font-bold">【セール中】</span>
             {/if}
@@ -77,12 +77,23 @@
           </p>
         </a>
 
+        <!-- ★ 1回ガチャ用：FANZA同人誘導メインボタン -->
+        <a
+          href={products[0].affiliate_url}
+          target="_blank"
+          rel="sponsored"
+          class="w-full mb-4 inline-flex items-center justify-center bg-gradient-to-r from-pink-600 to-red-600 text-white font-bold text-lg px-6 py-3 rounded-lg shadow-md hover:from-pink-700 hover:to-red-700 transition transform hover:-translate-y-0.5"
+        >
+          <span>🔥 FANZA同人で作品を見る</span>
+          <span class="ml-1 text-sm">↗</span>
+        </a>
+
         <div class="flex gap-2 justify-center items-center">
           <a
             href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText(products[0]))}`}
             target="_blank"
             rel="noopener noreferrer"
-            class="flex-1 mt-4 inline-flex items-center justify-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+            class="flex-1 inline-flex items-center justify-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
           >
             <img src="/logo.svg" alt="Xで共有" class="h-6 w-6 mr-2" />
             <span>ツイート</span>
@@ -92,7 +103,7 @@
             href={`https://line.me/R/share/text?text=${encodeURIComponent(getShareText(products[0]))}`}
             target="_blank"
             rel="noopener noreferrer"
-            class="flex-1 mt-4 inline-flex items-center justify-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+            class="flex-1 inline-flex items-center justify-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
           >
             <img src="/LINE_Brand_icon.png" alt="LINEで共有" class="h-6 w-6 mr-2" />
             <span>LINEで送る</span>
@@ -118,16 +129,16 @@
       <div class="grid gap-6 px-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {#each products as p}
           <Card maxWidth="max-w-xs">
-            <a href={p.affiliate_url} target="_blank" rel="sponsored">
+            <a href={p.affiliate_url} target="_blank" rel="sponsored" class="block group overflow-hidden rounded-lg">
               <img
                 src={p.image_url}
                 alt={p.title}
-                class="object-contain w-full h-48 rounded-lg shadow mb-3"
+                class="object-contain w-full h-48 rounded-lg shadow mb-3 transition-transform duration-300 group-hover:scale-105"
               />
             </a>
 
             <a href={p.affiliate_url} target="_blank" rel="sponsored">
-              <p class="text-sm font-semibold line-clamp-2">
+              <p class="text-sm font-semibold line-clamp-2 mb-3 hover:text-red-400 transition">
                 {#if p.is_sale}
                   <span class="text-red-500 font-bold">【セール中】</span>
                 {/if}
@@ -135,26 +146,37 @@
               </p>
             </a>
 
+            <!-- ★ 10連ガチャカード用：FANZA同人誘導ボタン -->
+            <a
+              href={p.affiliate_url}
+              target="_blank"
+              rel="sponsored"
+              class="w-full mb-3 inline-flex items-center justify-center bg-gradient-to-r from-pink-600 to-red-500 text-white font-bold text-sm py-2 rounded shadow hover:from-pink-700 hover:to-red-600 transition"
+            >
+              <span>🔮 FANZA同人で見る</span>
+              <span class="ml-0.5 text-xs">↗</span>
+            </a>
+
             <div class="flex gap-2">
               <a
                 href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText(p))}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex-1 mt-4 inline-flex items-center justify-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+                class="flex-1 inline-flex items-center justify-center bg-blue-500 text-white px-3 py-1.5 rounded hover:bg-blue-600 transition text-xs"
               >
-                <img src="/logo.svg" alt="Xで共有" class="h-6 w-6 mr-2" />
+                <img src="/logo.svg" alt="Xで共有" class="h-4 w-4 mr-1" />
                 <span>ツイート</span>
               </a>
 
-            <a
-              href={`https://line.me/R/share/text?text=${encodeURIComponent(getShareText(p))}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex-1 mt-4 inline-flex items-center justify-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
-            >
-              <img src="/LINE_Brand_icon.png" alt="LINEで共有" class="h-6 w-6 mr-2" />
-              <span>LINEで送る</span>
-            </a>
+              <a
+                href={`https://line.me/R/share/text?text=${encodeURIComponent(getShareText(p))}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex-1 inline-flex items-center justify-center bg-green-500 text-white px-3 py-1.5 rounded hover:bg-green-600 transition text-xs"
+              >
+                <img src="/LINE_Brand_icon.png" alt="LINEで共有" class="h-4 w-4 mr-1" />
+                <span>LINE</span>
+              </a>
             </div>
           </Card>
         {/each}
