@@ -84,7 +84,7 @@
           rel="sponsored"
           class="w-full mb-4 inline-flex items-center justify-center bg-gradient-to-r from-pink-600 to-red-600 text-white font-bold text-lg px-6 py-3 rounded-lg shadow-md hover:from-pink-700 hover:to-red-700 transition transform hover:-translate-y-0.5"
         >
-          <span>🔥 FANZA同人で作品を見る</span>
+          <span>💋 FANZA同人で見る</span>
           <span class="ml-1 text-sm">↗</span>
         </a>
 
@@ -153,7 +153,7 @@
               rel="sponsored"
               class="w-full mb-3 inline-flex items-center justify-center bg-gradient-to-r from-pink-600 to-red-500 text-white font-bold text-sm py-2 rounded shadow hover:from-pink-700 hover:to-red-600 transition"
             >
-              <span>🔮 FANZA同人で見る</span>
+              <span>💋 FANZA同人で見る</span>
               <span class="ml-0.5 text-xs">↗</span>
             </a>
 
