@@ -2,9 +2,9 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { PUBLIC_API_BASE } from '$env/static/public'; // PUBLIC_API_BASEをインポートしていることを確認
-	import DmmWidget from '$lib/DmmWidget.svelte'; // DmmWidgetコンポーネントをインポート
-	import DmmWidget2 from '$lib/DmmWidget2.svelte'; // DmmWidgetコンポーネントをインポート
-	import DmmBannerWidget from '$lib/DmmBannerWidget.svelte'; // DmmBannerWidgetコンポーネントをインポート
+	// import DmmWidget from '$lib/DmmWidget.svelte'; // DmmWidgetコンポーネントをインポート
+	// import DmmWidget2 from '$lib/DmmWidget2.svelte'; // DmmWidgetコンポーネントをインポート
+	// import DmmBannerWidget from '$lib/DmmBannerWidget.svelte'; // DmmBannerWidgetコンポーネントをインポート
 	import TwitterTimeline from '$lib/TwitterTimeline.svelte';
 
 	let products = [];
