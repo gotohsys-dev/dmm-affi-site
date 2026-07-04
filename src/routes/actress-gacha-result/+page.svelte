@@ -253,96 +253,89 @@
 		</div>
 	{:else if isBulk && actresses.length > 0}
 		<!-- 10連ガチャグリッド表示 -->
-		<!-- max-w-6xl もしくは 7xl に広げて1枚あたりの横幅を少しゆったり持たせる -->
-		<div
-			class="mx-auto grid max-w-6xl grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
-		>
+		<div class="mt-6 grid w-full grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-5">
 			{#each actresses as act}
-				<Card maxWidth="w-full">
+				<div
+					class="flex h-full flex-col overflow-hidden rounded-xl border border-gray-700 bg-gray-800 p-3 shadow-md"
+				>
+					<!-- 画像エリア: 横幅いっぱいに広げ、正方形（aspect-square）に固定してひょろ長さを解消 -->
 					<div
-						class="flex h-full flex-col overflow-hidden rounded-xl border border-gray-700/60 bg-gray-800/50 p-3 backdrop-blur-sm"
+						class="group relative mb-3 aspect-square w-full overflow-hidden rounded-lg bg-gray-900"
 					>
-						<!-- 画像コンテナ: アスペクト比を3:4に固定し、枠いっぱいに綺麗に収める -->
-						<div
-							class="group relative mb-3 aspect-[3/4] w-full overflow-hidden rounded-lg bg-gray-900 shadow-inner"
-						>
-							<img
-								src={act.image_url}
-								alt={act.name}
-								class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-							/>
+						<img
+							src={act.image_url}
+							alt={act.name}
+							class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+						/>
+					</div>
+
+					<!-- 情報エリア -->
+					<div class="flex flex-grow flex-col justify-between">
+						<div class="mb-3">
+							<p class="mb-0.5 line-clamp-1 text-[10px] font-bold text-pink-400">
+								{act.ruby || ' '}
+							</p>
+							<h3 class="line-clamp-1 text-base font-bold text-white">{act.name}</h3>
+
+							<ul
+								class="mt-2 space-y-0.5 border-t border-b border-gray-700 py-1.5 text-[11px] text-gray-400"
+							>
+								<li class="flex justify-between">
+									<span>身長:</span>
+									<span class="text-gray-200">{act.height ? `${act.height}cm` : '不明'}</span>
+								</li>
+								<li class="flex justify-between">
+									<span>サイズ:</span>
+									<span class="text-gray-200"
+										>B:{act.bust || '-'}({act.cup || '-'}) W:{act.waist || '-'}</span
+									>
+								</li>
+							</ul>
 						</div>
 
-						<!-- コンテンツ領域 -->
-						<div class="flex flex-grow flex-col justify-between">
-							<div class="mb-3">
-								<p class="mb-0.5 line-clamp-1 text-[10px] font-bold tracking-wider text-pink-400">
-									{act.ruby || ' '}
-								</p>
-								<h3 class="mb-2 line-clamp-1 min-h-[20px] text-sm font-bold text-white">
-									{act.name}
-								</h3>
+						<!-- ボタンエリア -->
+						<div class="space-y-2">
+							<!-- お気に入りボタン -->
+							<button
+								on:click={() => handleToggleActressFav(act)}
+								class="w-full rounded-lg py-1.5 text-center text-xs font-bold transition-all
+                  {isActressFav(act)
+									? 'bg-yellow-500 text-black hover:bg-yellow-600'
+									: 'border border-yellow-500/30 bg-gray-700 text-yellow-400 hover:bg-gray-600'}"
+							>
+								{isActressFav(act) ? '★ お気に入り解除' : '☆ お気に入り追加'}
+							</button>
 
-								<ul class="space-y-1 border-t border-gray-700/50 pt-2 text-[10px] text-gray-400">
-									<li class="flex justify-between">
-										<span class="text-gray-500">身長</span>
-										<span class="font-medium text-gray-300"
-											>{act.height ? `${act.height}cm` : '不明'}</span
-										>
-									</li>
-									<li class="flex justify-between">
-										<span class="text-gray-500">サイズ</span>
-										<span class="font-medium text-gray-300"
-											>B:{act.bust || '-'}({act.cup || '-'}) W:{act.waist || '-'}</span
-										>
-									</li>
-								</ul>
-							</div>
-
-							<!-- アクションエリア -->
-							<div class="space-y-2">
-								<!-- お気に入りボタン -->
-								<button
-									on:click={() => handleToggleActressFav(act)}
-									class="w-full rounded-lg py-1.5 text-center text-xs font-bold shadow-sm transition-all duration-200
-                    {isActressFav(act)
-										? 'bg-gradient-to-r from-yellow-400 to-amber-500 text-slate-900 hover:brightness-110'
-										: 'border border-yellow-500/30 bg-gray-700/60 text-yellow-400 hover:bg-gray-700'}"
-								>
-									{isActressFav(act) ? '★ お気に入り中' : '☆ お気に入り'}
-								</button>
-
-								<!-- アフィリンクボタン: 角丸を少し滑らかに、文字を中央寄せに -->
-								<div class="flex gap-1">
-									{#if act.list_url_digital}
-										<a
-											href={act.list_url_digital}
-											target="_blank"
-											class="flex-1 rounded-md bg-blue-600/90 py-1.5 text-center text-[10px] font-bold text-white transition-colors hover:bg-blue-600"
-											>動画</a
-										>
-									{/if}
-									{#if act.list_url_monthly}
-										<a
-											href={act.list_url_monthly}
-											target="_blank"
-											class="flex-1 rounded-md bg-emerald-600/90 py-1.5 text-center text-[10px] font-bold text-white transition-colors hover:bg-emerald-600"
-											>月額</a
-										>
-									{/if}
-									{#if act.list_url_mono}
-										<a
-											href={act.list_url_mono}
-											target="_blank"
-											class="flex-1 rounded-md bg-amber-600/90 py-1.5 text-center text-[10px] font-bold text-white transition-colors hover:bg-amber-600"
-											>通販</a
-										>
-									{/if}
-								</div>
+							<!-- アフィリンクボタン -->
+							<div class="flex gap-1">
+								{#if act.list_url_digital}
+									<a
+										href={act.list_url_digital}
+										target="_blank"
+										class="flex-1 rounded bg-blue-600 py-1.5 text-center text-[11px] font-bold text-white transition hover:bg-blue-700"
+										>動画</a
+									>
+								{/if}
+								{#if act.list_url_monthly}
+									<a
+										href={act.list_url_monthly}
+										target="_blank"
+										class="flex-1 rounded bg-green-600 py-1.5 text-center text-[11px] font-bold text-white transition hover:bg-green-700"
+										>月額</a
+									>
+								{/if}
+								{#if act.list_url_mono}
+									<a
+										href={act.list_url_mono}
+										target="_blank"
+										class="flex-1 rounded bg-orange-500 py-1.5 text-center text-[11px] font-bold text-white transition hover:bg-orange-600"
+										>通販</a
+									>
+								{/if}
 							</div>
 						</div>
 					</div>
-				</Card>
+				</div>
 			{/each}
 		</div>
 
