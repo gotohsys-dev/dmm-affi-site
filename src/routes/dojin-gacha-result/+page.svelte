@@ -6,6 +6,7 @@
   import { PUBLIC_API_BASE } from '$env/static/public';
   import DmmWidget from '$lib/DmmWidget.svelte';
   import DmmBannerWidget from '$lib/DmmBannerWidget.svelte';
+  import { favoritesStore, toggleFavorite } from '$lib/favorites';
   
   let products: any[] = [];
 
@@ -35,6 +36,19 @@
     const prefix = product.is_sale ? '【セール中】' : '';
     return `${prefix}🎯 同人ガチャで「${displayTitle}」が当たったよ！ ${product.affiliate_url} 毎日同人ガチャ https://dmm-affi-site.vercel.app/dojin #おすすめ同人 #FANZA`;
   };
+
+  const handleToggleFav = (product: any) => {
+    toggleFavorite({
+      id: product.affiliate_url,
+      type: 'doujin',
+      title: product.title,
+      image_url: product.image_url,
+      rarity: product.rarity,
+      is_sale: product.is_sale
+    });
+  };
+
+  $: isFav = (prod: any) => $favoritesStore.some(fav => fav.id === prod.affiliate_url && fav.type === 'doujin');
 </script>
 
 <style>
@@ -76,6 +90,15 @@
             {products[0].rarity || 'N'}:{products[0].title}
           </p>
         </a>
+
+        <!-- お気に入りボタン -->
+        <button
+          on:click={() => handleToggleFav(products[0])}
+          class="w-full mb-4 inline-flex items-center justify-center font-bold text-lg px-6 py-3 rounded-lg shadow-md transition transform hover:-translate-y-0.5
+            {isFav(products[0]) ? 'bg-yellow-500 text-black hover:bg-yellow-600' : 'bg-gray-800 text-yellow-400 hover:bg-gray-700 border border-yellow-500'}"
+        >
+          <span>{isFav(products[0]) ? '★ お気に入り解除' : '☆ お気に入りに追加'}</span>
+        </button>
 
         <!-- ★ 1回ガチャ用：FANZA同人誘導メインボタン -->
         <a
@@ -145,6 +168,15 @@
                 {p.rarity || 'N'}:{p.title}
               </p>
             </a>
+
+            <!-- お気に入りボタン -->
+            <button
+              on:click={() => handleToggleFav(p)}
+              class="w-full mb-3 inline-flex items-center justify-center font-bold text-xs py-2 rounded shadow transition
+                {isFav(p) ? 'bg-yellow-500 text-black hover:bg-yellow-600' : 'bg-gray-800 text-yellow-400 hover:bg-gray-700 border border-yellow-500'}"
+            >
+              <span>{isFav(p) ? '★ お気に入り解除' : '☆ お気に入り追加'}</span>
+            </button>
 
             <!-- ★ 10連ガチャカード用：FANZA同人誘導ボタン -->
             <a

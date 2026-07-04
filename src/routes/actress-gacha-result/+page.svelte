@@ -3,6 +3,7 @@
   import { base } from '$app/paths';
   import { PUBLIC_API_BASE } from '$env/static/public';
   import DmmWidget from '$lib/DmmWidget.svelte';
+  import { favoritesStore, toggleFavorite } from '$lib/favorites';
 
   let actress = null;
   let loading = true;
@@ -31,6 +32,30 @@
   }
 
   onMount(fetchActress);
+
+  const handleToggleActressFav = (act) => {
+    toggleFavorite({
+      id: act.name,
+      type: 'actress',
+      title: act.name,
+      image_url: act.image_url,
+      ruby: act.ruby
+    });
+  };
+
+  const handleToggleProductFav = (product) => {
+    toggleFavorite({
+      id: product.affiliate_url,
+      type: 'av',
+      title: product.title,
+      image_url: product.image_url,
+      rarity: product.rarity,
+      is_sale: product.is_sale
+    });
+  };
+
+  $: isActressFav = (act) => act && $favoritesStore.some(fav => fav.id === act.name && fav.type === 'actress');
+  $: isProductFav = (prod) => prod && $favoritesStore.some(fav => fav.id === prod.affiliate_url && fav.type === 'av');
 </script>
 
 <div class="text-center p-4">
@@ -77,6 +102,14 @@
         </div>
 
         <div class="space-y-2">
+            <!-- お気に入りボタン -->
+            <button
+              on:click={() => handleToggleActressFav(actress)}
+              class="w-full text-center py-2 rounded font-bold transition shadow
+                {isActressFav(actress) ? 'bg-yellow-500 text-black hover:bg-yellow-600' : 'bg-gray-800 text-yellow-400 hover:bg-gray-700 border border-yellow-500'}"
+            >
+              {isActressFav(actress) ? '★ 女優をお気に入り解除' : '☆ 女優をお気に入り登録'}
+            </button>
             {#if actress.list_url_digital}
               <a href={actress.list_url_digital} target="_blank" class="block w-full text-center bg-blue-600 text-white py-2 rounded font-bold hover:bg-blue-700">動画作品を見る</a>
             {/if}
@@ -114,6 +147,15 @@
                 {/if}
                 {product.title}
               </p>
+
+              <!-- お気に入りボタン -->
+              <button
+                on:click={() => handleToggleProductFav(product)}
+                class="mt-2 w-full text-center py-1 rounded text-[10px] font-bold transition shadow-sm
+                  {isProductFav(product) ? 'bg-yellow-400 text-black hover:bg-yellow-500' : 'bg-gray-100 text-gray-800 hover:bg-gray-200 border border-gray-300'}"
+              >
+                {isProductFav(product) ? '★ お気に入り解除' : '☆ お気に入り追加'}
+              </button>
             </div>
           </div>
         {/each}

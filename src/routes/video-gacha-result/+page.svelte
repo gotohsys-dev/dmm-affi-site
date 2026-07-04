@@ -6,6 +6,7 @@
   import { PUBLIC_API_BASE } from '$env/static/public';
   import DmmWidget from '$lib/DmmWidget.svelte';
   import DmmBannerWidget from '$lib/DmmBannerWidget.svelte';
+  import { favoritesStore, toggleFavorite } from '$lib/favorites';
 
   let videos: any[] = [];
 
@@ -27,6 +28,19 @@
     const prefix = video.is_sale ? '【セール中】' : '';
     return `${prefix}🎬 動画ガチャで「${displayTitle}」が当たったよ！ ${video.affiliate_url} #動画ガチャ #おすすめAV https://dmm-affi-site.vercel.app/`;
   };
+
+  const handleToggleFav = (video: any) => {
+    toggleFavorite({
+      id: video.affiliate_url,
+      type: 'video',
+      title: video.title,
+      video_url: video.video_url,
+      rarity: video.rarity,
+      is_sale: video.is_sale
+    });
+  };
+
+  $: isFav = (v: any) => $favoritesStore.some(fav => fav.id === v.affiliate_url && fav.type === 'video');
 </script>
 
 <style>
@@ -60,6 +74,15 @@
             {videos[0].rarity}:{videos[0].title}
           </p>
         </a>
+
+        <!-- お気に入りボタン -->
+        <button
+          on:click={() => handleToggleFav(videos[0])}
+          class="w-full mb-4 inline-flex items-center justify-center font-bold text-lg px-6 py-3 rounded-lg shadow-md transition transform hover:-translate-y-0.5
+            {isFav(videos[0]) ? 'bg-yellow-500 text-black hover:bg-yellow-600' : 'bg-gray-800 text-yellow-400 hover:bg-gray-700 border border-yellow-500'}"
+        >
+          <span>{isFav(videos[0]) ? '★ お気に入り解除' : '☆ お気に入りに追加'}</span>
+        </button>
 
         <div class="flex gap-2 justify-center items-center">
           <a
@@ -102,6 +125,15 @@
                 {v.rarity}:{v.title}
               </p>
             </a>
+
+            <!-- お気に入りボタン -->
+            <button
+              on:click={() => handleToggleFav(v)}
+              class="w-full mt-3 inline-flex items-center justify-center font-bold text-xs py-2 rounded shadow transition
+                {isFav(v) ? 'bg-yellow-500 text-black hover:bg-yellow-600' : 'bg-gray-800 text-yellow-400 hover:bg-gray-700 border border-yellow-500'}"
+            >
+              <span>{isFav(v) ? '★ お気に入り解除' : '☆ お気に入り追加'}</span>
+            </button>
 
             <div class="flex gap-2">
               <a
