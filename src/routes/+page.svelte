@@ -125,10 +125,13 @@
 			type="checkbox"
 			id="campaign-only-checkbox"
 			bind:checked={campaignOnly}
-			class="h-5 w-5 rounded border-gray-300 text-pink-600 focus:ring-pink-500 cursor-pointer"
+			class="h-5 w-5 cursor-pointer rounded border-gray-300 text-pink-600 focus:ring-pink-500"
 		/>
-		<label for="campaign-only-checkbox" class="text-sm font-semibold text-gray-200 cursor-pointer select-none">
-			🎁 キャンペーン対象作品のみをガチャる
+		<label
+			for="campaign-only-checkbox"
+			class="cursor-pointer text-sm font-semibold text-gray-200 select-none"
+		>
+			セール中の作品のみをガチャる
 		</label>
 	</div>
 
@@ -153,14 +156,25 @@
 	<!-- <DmmWidget dataId="7466dd6057bbc4243631a4b74a3580da" /> -->
 	<!-- <DmmBannerWidget affiliate_id="honebuto-001" banner_id="1526_300_250" /> -->
 	<!-- ウィジェット1 -->
-	<ins class="dmm-widget-placement" data-id="7466dd6057bbc4243631a4b74a3580da" style="background:transparent"></ins><script src="https://widget-view.dmm.co.jp/js/placement.js" class="dmm-widget-scripts" data-id="7466dd6057bbc4243631a4b74a3580da"></script>
+	<ins
+		class="dmm-widget-placement"
+		data-id="7466dd6057bbc4243631a4b74a3580da"
+		style="background:transparent"
+	></ins><script
+		src="https://widget-view.dmm.co.jp/js/placement.js"
+		class="dmm-widget-scripts"
+		data-id="7466dd6057bbc4243631a4b74a3580da"
+	></script>
 	<!-- バナー1 -->
 	<ins class="widget-banner"></ins><script
 		class="widget-banner-script"
 		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=1942_300_250"
 	></script>
 	<!-- バナー2 -->
-	<ins class="widget-banner"></ins><script class="widget-banner-script" src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=1390_300_250"></script>
+	<ins class="widget-banner"></ins><script
+		class="widget-banner-script"
+		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=1390_300_250"
+	></script>
 </div>
 
 <section
