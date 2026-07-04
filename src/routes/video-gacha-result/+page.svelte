@@ -13,10 +13,15 @@
   onMount(async () => {
     const { url } = get(page);
     const isBulk = url.searchParams.get('bulk') === '10';
+    const campaignOnly = url.searchParams.get('campaign_only') === 'true';
 
-    const endpoint = isBulk
+    let endpoint = isBulk
       ? `${PUBLIC_API_BASE}/videos/random/`
       : `${PUBLIC_API_BASE}/videos/random-one/`;
+
+    if (campaignOnly) {
+      endpoint += '?campaign_only=true';
+    }
 
     const res = await fetch(endpoint);
     const data = await res.json();

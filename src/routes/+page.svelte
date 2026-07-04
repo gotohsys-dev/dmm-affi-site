@@ -62,10 +62,16 @@
 		}, 1500);
 	}
 
+	let campaignOnly = false;
+
 	// ガチャを回す
 	async function rollGacha(count) {
 		const isBulk = count === 10;
-		await goto(`/gacha-result${isBulk ? '?bulk=10' : ''}`);
+		let query = `?bulk=${isBulk ? '10' : '1'}`;
+		if (campaignOnly) {
+			query += '&campaign_only=true';
+		}
+		await goto(`/gacha-result${query}`);
 	}
 </script>
 
@@ -114,6 +120,18 @@
 </div>
 
 <div class="mt-6 text-center">
+	<div class="mb-4 flex items-center justify-center gap-2">
+		<input
+			type="checkbox"
+			id="campaign-only-checkbox"
+			bind:checked={campaignOnly}
+			class="h-5 w-5 rounded border-gray-300 text-pink-600 focus:ring-pink-500 cursor-pointer"
+		/>
+		<label for="campaign-only-checkbox" class="text-sm font-semibold text-gray-200 cursor-pointer select-none">
+			🎁 キャンペーン対象作品のみをガチャる
+		</label>
+	</div>
+
 	<button
 		on:click={() => rollGacha(1)}
 		class="rounded bg-pink-600 px-4 py-2 font-bold text-white hover:bg-pink-700"

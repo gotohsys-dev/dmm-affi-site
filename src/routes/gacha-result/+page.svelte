@@ -14,10 +14,15 @@
   const fetchProducts = async () => {
     const { url } = get(page); // 現在のURLからbulkパラメータを判定
     const isBulk = url.searchParams.get('bulk') === '10';
+    const campaignOnly = url.searchParams.get('campaign_only') === 'true';
 
-    const endpoint = isBulk
+    let endpoint = isBulk
       ? `${PUBLIC_API_BASE}/products/random/`
       : `${PUBLIC_API_BASE}/products/random-one/`;
+
+    if (campaignOnly) {
+      endpoint += '?campaign_only=true';
+    }
 
     const res = await fetch(endpoint);
     const data = await res.json();

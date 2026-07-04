@@ -13,11 +13,16 @@
   const fetchProducts = async () => {
     const { url } = get(page);
     const isBulk = url.searchParams.get('bulk') === '10';
+    const campaignOnly = url.searchParams.get('campaign_only') === 'true';
 
     // 電子書籍用のエンドポイントを指定
-    const endpoint = isBulk
+    let endpoint = isBulk
       ? `${PUBLIC_API_BASE}/fanzabook/random/`
       : `${PUBLIC_API_BASE}/fanzabook/random-one/`;
+
+    if (campaignOnly) {
+      endpoint += '?campaign_only=true';
+    }
 
     const res = await fetch(endpoint);
     const data = await res.json();
