@@ -222,9 +222,9 @@
             <div class="flex-grow flex flex-col justify-between">
               <div>
                 <p class="text-[10px] text-pink-500 font-bold">{act.ruby || ''}</p>
-                <h3 class="text-base font-bold mb-2 text-gray-800">{act.name}</h3>
+                <h3 class="text-base font-bold mb-2 text-white">{act.name}</h3>
                 
-                <ul class="text-[10px] text-gray-600 space-y-0.5 border-t border-b py-2 mb-3">
+                <ul class="text-[10px] text-gray-300 space-y-0.5 border-t border-b border-gray-700 py-2 mb-3">
                   <li><strong>身長:</strong> {act.height ? `${act.height}cm` : '不明'}</li>
                   <li><strong>サイズ:</strong> B:{act.bust || '-'}({act.cup || '-'}) W:{act.waist || '-'} H:{act.hip || '-'}</li>
                 </ul>
