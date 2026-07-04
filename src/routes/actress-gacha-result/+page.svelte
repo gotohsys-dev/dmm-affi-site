@@ -3,6 +3,7 @@
   import { base } from '$app/paths';
   import { PUBLIC_API_BASE } from '$env/static/public';
   import DmmWidget from '$lib/DmmWidget.svelte';
+  import Card from '$lib/Card.svelte';
   import { favoritesStore, toggleFavorite } from '$lib/favorites';
   import { page } from '$app/stores';
   import { get } from 'svelte/store';
