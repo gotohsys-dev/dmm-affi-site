@@ -294,7 +294,7 @@
 										{#if item.type === 'actress'}
 											<div class="flex flex-col gap-1">
 												<a
-													href={item.id}
+													href={item.list_url_digital}
 													target="_blank"
 													class="w-full rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 py-2 text-center text-xs font-bold text-white transition hover:from-blue-700 hover:to-indigo-700"
 												>
