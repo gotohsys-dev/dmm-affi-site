@@ -67,7 +67,8 @@
       type: 'actress',
       title: act.name,
       image_url: act.image_url,
-      ruby: act.ruby
+      ruby: act.ruby,
+      list_url_digital: act.list_url_digital
     });
   };
 

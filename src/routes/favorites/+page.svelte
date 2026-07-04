@@ -221,7 +221,7 @@
 									{:else if item.image_url}
 										<!-- svelte-ignore a11y-missing-attribute -->
 										<a
-											href={item.id}
+											href={item.type === 'actress' ? (item.list_url_digital || `https://www.dmm.co.jp/search/=/searchstr=${encodeURIComponent(item.title)}/`) : item.id}
 											target="_blank"
 											rel="sponsored"
 											class="group block h-full w-full"
@@ -245,7 +245,7 @@
 										{/if}
 
 										<!-- svelte-ignore a11y-missing-attribute -->
-										<a href={item.id} target="_blank" rel="sponsored">
+										<a href={item.type === 'actress' ? (item.list_url_digital || `https://www.dmm.co.jp/search/=/searchstr=${encodeURIComponent(item.title)}/`) : item.id} target="_blank" rel="sponsored">
 											<h4
 												class="mb-2 line-clamp-2 h-10 text-sm font-semibold transition hover:text-red-400"
 											>
@@ -294,7 +294,7 @@
 										{#if item.type === 'actress'}
 											<div class="flex flex-col gap-1">
 												<a
-													href={item.list_url_digital}
+													href={item.list_url_digital || `https://www.dmm.co.jp/search/=/searchstr=${encodeURIComponent(item.title)}/`}
 													target="_blank"
 													class="w-full rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 py-2 text-center text-xs font-bold text-white transition hover:from-blue-700 hover:to-indigo-700"
 												>
@@ -308,7 +308,7 @@
 												rel="sponsored"
 												class="inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-pink-600 to-red-600 py-2.5 text-xs font-bold text-white shadow-md transition hover:from-pink-700 hover:to-red-700"
 											>
-												<span>🔥 FANZAで見る</span>
+												<span>💋 FANZAで見る</span>
 												<span class="ml-1 text-[10px]">↗</span>
 											</a>
 										{/if}

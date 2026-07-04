@@ -12,6 +12,7 @@ export interface FavoriteItem {
   author?: string; // book用
   maker?: string;  // book用
   ruby?: string;   // actress用
+  list_url_digital?: string; // actress用
   added_at: number;
 }
 
