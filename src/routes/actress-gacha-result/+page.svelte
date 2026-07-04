@@ -104,9 +104,9 @@
     </div>
   {:else if !isBulk && actress}
     <!-- 1回ガチャ詳細表示 -->
-    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 flex flex-col md:flex-row">
+    <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-700 flex flex-col md:flex-row text-white">
       <!-- 左側：画像 -->
-      <div class="md:w-1/2 bg-gray-100">
+      <div class="md:w-1/2 bg-gray-900">
         <img 
           src={actress.image_url} 
           alt={actress.name} 
@@ -120,7 +120,7 @@
           <p class="text-sm text-pink-500 font-bold">{actress.ruby || ''}</p>
           <h2 class="text-3xl font-bold mb-4">{actress.name}</h2>
           
-          <ul class="space-y-2 text-gray-700 border-t border-b py-4 mb-4">
+          <ul class="space-y-2 text-gray-300 border-t border-b border-gray-700 py-4 mb-4">
             <li><strong>身長:</strong> {actress.height ? `${actress.height}cm` : '不明'}</li>
             <li><strong>血液型:</strong> {actress.blood_type ? `${actress.blood_type}型` : '不明'}</li>
             <li><strong>スリーサイズ:</strong> B:{actress.bust || '-'}({actress.cup || '-'}) W:{actress.waist || '-'} H:{actress.hip || '-'}</li>
