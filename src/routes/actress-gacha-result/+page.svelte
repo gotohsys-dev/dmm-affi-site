@@ -4,25 +4,45 @@
   import { PUBLIC_API_BASE } from '$env/static/public';
   import DmmWidget from '$lib/DmmWidget.svelte';
   import { favoritesStore, toggleFavorite } from '$lib/favorites';
+  import { page } from '$app/stores';
+  import { get } from 'svelte/store';
 
   let actress = null;
+  let actresses = [];
   let loading = true;
   let products = [];
   let error = null;
+  let isBulk = false;
 
-  async function fetchActress() {
+  async function fetchActresses() {
     loading = true;
     error = null;
     try {
-      const response = await fetch(`${PUBLIC_API_BASE}/actress/random-one/`);
+      const { url } = get(page);
+      isBulk = url.searchParams.get('bulk') === '10';
+
+      const endpoint = isBulk
+        ? `${PUBLIC_API_BASE}/actress/random/`
+        : `${PUBLIC_API_BASE}/actress/random-one/`;
+
+      const response = await fetch(endpoint);
       if (!response.ok) {
         throw new Error('女優データの取得に失敗しました');
       }
-      actress = await response.json();
+      const data = await response.json();
 
-      // 女優の作品を取得
-      const productRes = await fetch(`${PUBLIC_API_BASE}/actress/products/?name=${encodeURIComponent(actress.name)}`);
-      products = await productRes.json();
+      if (isBulk) {
+        actresses = Array.isArray(data) ? data : [data];
+        actress = null;
+        products = [];
+      } else {
+        actress = data;
+        actresses = [data];
+
+        // 女優の作品を取得
+        const productRes = await fetch(`${PUBLIC_API_BASE}/actress/products/?name=${encodeURIComponent(actress.name)}`);
+        products = await productRes.json();
+      }
 
     } catch (e) {
       error = e.message;
@@ -31,7 +51,14 @@
     }
   }
 
-  onMount(fetchActress);
+  onMount(fetchActresses);
+
+  const handleRetry = () => {
+    actress = null;
+    actresses = [];
+    products = [];
+    fetchActresses();
+  };
 
   const handleToggleActressFav = (act) => {
     toggleFavorite({
@@ -70,11 +97,12 @@
   {:else if error}
     <div class="text-center py-20 bg-white rounded-lg shadow">
       <p class="text-red-500 mb-4">{error}</p>
-      <button on:click={fetchActress} class="w-full py-3 bg-pink-500 text-white font-bold rounded-xl hover:bg-pink-600 transition">
+      <button on:click={handleRetry} class="w-full py-3 bg-pink-500 text-white font-bold rounded-xl hover:bg-pink-600 transition">
         もう一度試す
       </button>
     </div>
-  {:else if actress}
+  {:else if !isBulk && actress}
+    <!-- 1回ガチャ詳細表示 -->
     <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 flex flex-col md:flex-row">
       <!-- 左側：画像 -->
       <div class="md:w-1/2 bg-gray-100">
@@ -164,10 +192,78 @@
 
     <div class="mt-8 text-center space-x-4">
       <button
-        on:click={fetchActress}
+        on:click={handleRetry}
         class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-6 rounded shadow"
       >
         もう一度回す
+      </button>
+      <a
+        href="{base}/actress"
+        class="inline-block bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded shadow"
+      >
+        トップに戻る
+      </a>
+    </div>
+  {:else if isBulk && actresses.length > 0}
+    <!-- 10連ガチャグリッド表示 -->
+    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+      {#each actresses as act}
+        <Card maxWidth="max-w-xs">
+          <div class="flex flex-col h-full justify-between">
+            <div class="relative overflow-hidden rounded-lg mb-3">
+              <img
+                src={act.image_url}
+                alt={act.name}
+                class="mx-auto object-contain w-full h-48 rounded-lg shadow transition-transform duration-300 hover:scale-105"
+              />
+            </div>
+            
+            <div class="flex-grow flex flex-col justify-between">
+              <div>
+                <p class="text-[10px] text-pink-500 font-bold">{act.ruby || ''}</p>
+                <h3 class="text-base font-bold mb-2 text-gray-800">{act.name}</h3>
+                
+                <ul class="text-[10px] text-gray-600 space-y-0.5 border-t border-b py-2 mb-3">
+                  <li><strong>身長:</strong> {act.height ? `${act.height}cm` : '不明'}</li>
+                  <li><strong>サイズ:</strong> B:{act.bust || '-'}({act.cup || '-'}) W:{act.waist || '-'} H:{act.hip || '-'}</li>
+                </ul>
+              </div>
+
+              <div>
+                <!-- お気に入りボタン -->
+                <button
+                  on:click={() => handleToggleActressFav(act)}
+                  class="w-full text-center py-1.5 rounded text-xs font-bold transition shadow-sm
+                    {isActressFav(act) ? 'bg-yellow-500 text-black hover:bg-yellow-600' : 'bg-gray-800 text-yellow-400 hover:bg-gray-700 border border-yellow-500'}"
+                >
+                  {isActressFav(act) ? '★ お気に入り解除' : '☆ お気に入り追加'}
+                </button>
+
+                <!-- アフィリンクボタン -->
+                <div class="flex gap-1 mt-2">
+                  {#if act.list_url_digital}
+                    <a href={act.list_url_digital} target="_blank" class="flex-1 text-center bg-blue-600 text-white py-1.5 rounded text-[10px] font-bold hover:bg-blue-700">動画</a>
+                  {/if}
+                  {#if act.list_url_monthly}
+                    <a href={act.list_url_monthly} target="_blank" class="flex-1 text-center bg-green-600 text-white py-1.5 rounded text-[10px] font-bold hover:bg-green-700">月額</a>
+                  {/if}
+                  {#if act.list_url_mono}
+                    <a href={act.list_url_mono} target="_blank" class="flex-1 text-center bg-orange-500 text-white py-1.5 rounded text-[10px] font-bold hover:bg-orange-600">通販</a>
+                  {/if}
+                </div>
+              </div>
+            </div>
+          </div>
+        </Card>
+      {/each}
+    </div>
+
+    <div class="mt-8 text-center space-x-4">
+      <button
+        on:click={handleRetry}
+        class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-6 rounded shadow"
+      >
+        もう一度10連を回す
       </button>
       <a
         href="{base}/actress"

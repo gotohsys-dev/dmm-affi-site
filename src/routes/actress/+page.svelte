@@ -57,8 +57,9 @@
     }, 1500);
   }
 
-  async function rollGacha() {
-    await goto(`${base}/actress-gacha-result`);
+  async function rollGacha(count) {
+    const isBulk = count === 10;
+    await goto(`${base}/actress-gacha-result${isBulk ? '?bulk=10' : ''}`);
   }
 </script>
 
@@ -88,12 +89,19 @@
   {/if}
 </div>
 
-<div class="mt-6 text-center">
+<div class="mt-6 text-center flex justify-center gap-4">
   <button
-    on:click={rollGacha}
+    on:click={() => rollGacha(1)}
     class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-8 rounded shadow-lg transition-transform active:scale-95"
   >
     ガチャを回す
+  </button>
+
+  <button
+    on:click={() => rollGacha(10)}
+    class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-8 rounded shadow-lg transition-transform active:scale-95"
+  >
+    10連ガチャ
   </button>
 </div>
 
