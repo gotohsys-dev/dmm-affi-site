@@ -259,10 +259,14 @@
 	</div>
 {/if}
 
-<div class="my-6 flex flex-wrap items-center justify-center gap-4">
+<!-- <div class="my-6 flex flex-wrap items-center justify-center gap-4">
 	<DmmWidget dataId="043481a98d238feacca4c97e7b47d21b" />
 	<DmmBannerWidget affiliate_id="honebuto-001" banner_id="1526_300_250" />
-</div>
+</div> -->
+<!-- オンラインくじ -->
+<ins class="widget-banner"></ins><script class="widget-banner-script" src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=860_300_250"></script>
+<!-- EroToonバナー -->
+<ins class="widget-banner"></ins><script class="widget-banner-script" src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=738_300_250"></script>
 
 <style>
 	@keyframes spin {
