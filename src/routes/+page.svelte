@@ -166,7 +166,10 @@
 		data-id="7466dd6057bbc4243631a4b74a3580da"
 	></script>
 	<!-- バナー1 -->
-
+	<ins class="widget-banner"></ins><script
+		class="widget-banner-script"
+		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=860_300_250"
+	></script>
 	<!-- バナー2 -->
 	<ins class="widget-banner"></ins><script
 		class="widget-banner-script"
