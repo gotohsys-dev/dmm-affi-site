@@ -171,10 +171,10 @@
 		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=860_300_250"
 	></script>
 	<!-- バナー2 -->
-	<ins class="widget-banner"></ins><script
+	<!-- <ins class="widget-banner"></ins><script
 		class="widget-banner-script"
 		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=1390_300_250"
-	></script>
+	></script> -->
 </div>
 
 <section
