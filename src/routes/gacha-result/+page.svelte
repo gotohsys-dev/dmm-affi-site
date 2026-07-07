@@ -148,7 +148,8 @@
 				>
 					🎯 もう一度引く
 				</button>
-				<a href="/" class="text-blue-400 hover:underline">🔁 トップに戻る</a>
+				<!-- <a href="/" class="text-blue-400 hover:underline">🔁 トップに戻る</a> -->
+				<a href={`/?t=${Date.now()}`} class="text-blue-400 hover:underline">🔁 トップに戻る</a>
 			</div>
 		</Card>
 	</div>
