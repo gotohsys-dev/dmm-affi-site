@@ -64,6 +64,33 @@
 		$favoritesStore.some((fav) => fav.id === prod.affiliate_url && fav.type === 'av');
 </script>
 
+<div class="my-6 flex flex-wrap items-center justify-center gap-4">
+	<!-- <DmmWidget dataId="043481a98d238feacca4c97e7b47d21b" /> -->
+	<!-- <DmmBannerWidget affiliate_id="honebuto-001" banner_id="1209_300_250" /> -->
+	<!-- <DmmWidget dataId="7466dd6057bbc4243631a4b74a3580da" /> -->
+	<!-- <DmmBannerWidget affiliate_id="honebuto-001" banner_id="1526_300_250" /> -->
+	<!-- ウィジェット1 -->
+	<ins
+		class="dmm-widget-placement"
+		data-id="7466dd6057bbc4243631a4b74a3580da"
+		style="background:transparent"
+	></ins><script
+		src="https://widget-view.dmm.co.jp/js/placement.js"
+		class="dmm-widget-scripts"
+		data-id="7466dd6057bbc4243631a4b74a3580da"
+	></script>
+	<!-- バナー1 -->
+	<ins class="widget-banner"></ins><script
+		class="widget-banner-script"
+		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=860_300_250"
+	></script>
+	<!-- バナー2 -->
+	<ins class="widget-banner"></ins><script
+		class="widget-banner-script"
+		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=1390_300_250"
+	></script>
+</div>
+
 {#if products.length === 0}
 	<div class="py-10 text-center text-white">
 		<span class="spinner">ガチャを回しています...</span>
