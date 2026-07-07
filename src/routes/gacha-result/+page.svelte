@@ -154,9 +154,8 @@
 				>
 					🎯 もう一度引く
 				</button>
-				<!-- <a href="/" class="text-blue-400 hover:underline">🔁 トップに戻る</a> -->
-				<a href="/" class="text-blue-400 hover:underline">🔁 トップに戻る</a>
 
+				<!-- <a href="/" class="text-blue-400 hover:underline">🔁 トップに戻る</a> -->
 				<button
 					on:click={handleGoToTopWithReload}
 					class="text-left text-blue-400 hover:underline focus:outline-none"
@@ -249,8 +248,6 @@
 			>
 				🎯 もう一度 10 連を引く
 			</button>
-
-			<a href="/" class="text-lg text-blue-400 hover:underline">🔁 トップに戻る</a>
 
 			<button
 				on:click={handleGoToTopWithReload}
