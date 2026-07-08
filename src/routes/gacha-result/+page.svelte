@@ -11,8 +11,6 @@
 
 	let products: any[] = [];
 
-
-
 	const fetchProducts = async () => {
 		const { url } = get(page); // 現在のURLからbulkパラメータを判定
 		const isBulk = url.searchParams.get('bulk') === '10';
@@ -76,11 +74,6 @@
 		class="widget-banner-script"
 		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=860_300_250"
 	></script>
-	<!-- バナー2 -->
-	<!-- <ins class="widget-banner"></ins><script
-		class="widget-banner-script"
-		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=1390_300_250"
-	></script> -->
 </div>
 
 {#if products.length === 0}
@@ -166,11 +159,7 @@
 					🎯 もう一度引く
 				</button>
 
-				<a
-					href="/"
-					data-sveltekit-reload
-					class="text-left text-blue-400 hover:underline"
-				>
+				<a href="/" data-sveltekit-reload class="text-left text-blue-400 hover:underline">
 					🔁 トップに戻る
 				</a>
 			</div>
@@ -268,11 +257,7 @@
 				🎯 もう一度 10 連を引く
 			</button>
 
-			<a
-				href="/"
-				data-sveltekit-reload
-				class="mx-auto text-lg text-blue-400 hover:underline"
-			>
+			<a href="/" data-sveltekit-reload class="mx-auto text-lg text-blue-400 hover:underline">
 				🔁 トップに戻る
 			</a>
 		</div>
@@ -290,16 +275,16 @@
 		class="dmm-widget-scripts"
 		data-id="7466dd6057bbc4243631a4b74a3580da"
 	></script> -->
-	<!-- バナー1 -->
+	<!-- ゲーム放題 -->
+	<ins class="widget-banner"></ins><script
+		class="widget-banner-script"
+		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=456_300_250"
+	></script>
+	<!-- オンラインくじ -->
 	<ins class="widget-banner"></ins><script
 		class="widget-banner-script"
 		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=860_300_250"
 	></script>
-	<!-- バナー2 -->
-	<!-- <ins class="widget-banner"></ins><script
-		class="widget-banner-script"
-		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=1390_300_250"
-	></script> -->
 </div>
 
 <style>
