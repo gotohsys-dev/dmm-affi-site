@@ -67,7 +67,7 @@
 		if (campaignOnly) {
 			query += '&campaign_only=true';
 		}
-		await goto(`/dojin-gacha-result${query}`);
+		window.location.href = `/dojin-gacha-result${query}`;
 	}
 </script>
 

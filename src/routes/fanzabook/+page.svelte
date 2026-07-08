@@ -67,7 +67,7 @@
 		if (campaignOnly) {
 			query += '&campaign_only=true';
 		}
-		await goto(`/fanzabook-gacha-result${query}`);
+		window.location.href = `/fanzabook-gacha-result${query}`;
 	}
 </script>
 

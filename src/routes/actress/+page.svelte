@@ -59,7 +59,7 @@
 
   async function rollGacha(count) {
     const isBulk = count === 10;
-    await goto(`${base}/actress-gacha-result${isBulk ? '?bulk=10' : ''}`);
+    window.location.href = `${base}/actress-gacha-result${isBulk ? '?bulk=10' : ''}`;
   }
 </script>
 

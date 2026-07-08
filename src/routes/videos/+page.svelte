@@ -32,7 +32,7 @@
 		if (campaignOnly) {
 			query += '&campaign_only=true';
 		}
-		await goto(`/video-gacha-result${query}`);
+		window.location.href = `/video-gacha-result${query}`;
 	}
 </script>
 

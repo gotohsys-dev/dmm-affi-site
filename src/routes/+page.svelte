@@ -71,7 +71,7 @@
 		if (campaignOnly) {
 			query += '&campaign_only=true';
 		}
-		await goto(`/gacha-result${query}`);
+		window.location.href = `/gacha-result${query}`;
 	}
 </script>
 
