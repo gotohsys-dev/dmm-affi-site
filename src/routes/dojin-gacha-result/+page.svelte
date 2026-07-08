@@ -140,7 +140,7 @@
 				>
 					🎯 もう一度引く
 				</button>
-				<a href="/" class="text-blue-400 hover:underline">🔁 トップに戻る</a>
+				<a href="/" data-sveltekit-reload class="text-blue-400 hover:underline">🔁 トップに戻る</a>
 			</div>
 		</Card>
 	</div>
@@ -227,7 +227,7 @@
 			>
 				🎯 もう一度 10 連を引く
 			</button>
-			<a href="/dojin" class="text-lg text-blue-400 hover:underline">🔁 トップに戻る</a>
+			<a href="/dojin" data-sveltekit-reload class="text-lg text-blue-400 hover:underline">🔁 トップに戻る</a>
 		</div>
 	</div>
 {/if}

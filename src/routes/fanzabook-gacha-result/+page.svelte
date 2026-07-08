@@ -152,7 +152,7 @@
           >
             🎯 もう一度引く
           </button>
-          <a href="/fanzabook" class="text-blue-400 hover:underline">🔁 ガチャトップに戻る</a>
+          <a href="/fanzabook" data-sveltekit-reload class="text-blue-400 hover:underline">🔁 ガチャトップに戻る</a>
         </div>
       </Card>
     </div>
@@ -233,7 +233,7 @@
         >
           🎯 もう一度 10 連を引く
         </button>
-        <a href="/fanzabook" class="text-blue-400 hover:underline text-lg">🔁 ガチャトップに戻る</a>
+        <a href="/fanzabook" data-sveltekit-reload class="text-blue-400 hover:underline text-lg">🔁 ガチャトップに戻る</a>
       </div>
     </div>
   {/if}

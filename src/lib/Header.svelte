@@ -1,4 +1,4 @@
-<header class="bg-gray-800 text-white p-4">
+<header class="bg-gray-800 text-white p-4" data-sveltekit-reload>
   <nav class="container mx-auto flex justify-between">
     <a href="/" class="font-bold text-xl">毎日エ〇ガチャ</a>
     <div>

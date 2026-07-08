@@ -246,6 +246,7 @@
 			</button>
 			<a
 				href="{base}/actress"
+				data-sveltekit-reload
 				class="inline-block rounded bg-gray-600 px-6 py-2 font-bold text-white shadow hover:bg-gray-700"
 			>
 				トップに戻る
@@ -348,6 +349,7 @@
 			</button>
 			<a
 				href="{base}/actress"
+				data-sveltekit-reload
 				class="inline-block rounded bg-gray-600 px-6 py-2 font-bold text-white shadow hover:bg-gray-700"
 			>
 				トップに戻る

@@ -112,7 +112,7 @@
           </a>
         </div>
 
-        <a href="/videos" class="mt-4 block text-center text-blue-400 hover:underline">🔁 動画ガチャに戻る</a>
+        <a href="/videos" data-sveltekit-reload class="mt-4 block text-center text-blue-400 hover:underline">🔁 動画ガチャに戻る</a>
       </Card>
     </div>
   {:else}
@@ -165,7 +165,7 @@
         {/each}
       </div>
       <div class="text-center mt-10">
-        <a href="/videos" class="text-blue-400 hover:underline">🔁 動画ガチャに戻る</a>
+        <a href="/videos" data-sveltekit-reload class="text-blue-400 hover:underline">🔁 動画ガチャに戻る</a>
       </div>
     </div>
   {/if}

@@ -11,11 +11,7 @@
 
 	let products: any[] = [];
 
-	// 完全にページをリロードしてトップ（/）に戻る関数
-	const handleGoToTopWithReload = (e: MouseEvent) => {
-		e.preventDefault();
-		window.location.href = '/';
-	};
+
 
 	const fetchProducts = async () => {
 		const { url } = get(page); // 現在のURLからbulkパラメータを判定
@@ -170,13 +166,13 @@
 					🎯 もう一度引く
 				</button>
 
-				<!-- <a href="/" class="text-blue-400 hover:underline">🔁 トップに戻る</a> -->
-				<button
-					on:click={handleGoToTopWithReload}
-					class="text-left text-blue-400 hover:underline focus:outline-none"
+				<a
+					href="/"
+					data-sveltekit-reload
+					class="text-left text-blue-400 hover:underline"
 				>
 					🔁 トップに戻る
-				</button>
+				</a>
 			</div>
 		</Card>
 	</div>
@@ -272,12 +268,13 @@
 				🎯 もう一度 10 連を引く
 			</button>
 
-			<button
-				on:click={handleGoToTopWithReload}
-				class="mx-auto text-lg text-blue-400 hover:underline focus:outline-none"
+			<a
+				href="/"
+				data-sveltekit-reload
+				class="mx-auto text-lg text-blue-400 hover:underline"
 			>
 				🔁 トップに戻る
-			</button>
+			</a>
 		</div>
 	</div>
 {/if}
