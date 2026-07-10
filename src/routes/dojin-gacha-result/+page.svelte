@@ -58,6 +58,14 @@
 		$favoritesStore.some((fav) => fav.id === prod.affiliate_url && fav.type === 'doujin');
 </script>
 
+<!-- 見放題Ch -->
+<div class="my-4 flex justify-center">
+	<ins class="widget-banner"></ins><script
+		class="widget-banner-script"
+		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=1828_640_100"
+	></script>
+</div>
+
 {#if products.length === 0}
 	<div class="py-10 text-center text-white">
 		<span class="spinner">同人ガチャを回しています...</span>
