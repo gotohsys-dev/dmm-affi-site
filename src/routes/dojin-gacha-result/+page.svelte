@@ -258,10 +258,10 @@
 		class="widget-banner-script"
 		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=456_300_250"
 	></script>
-	<!-- オンラインくじ -->
+	<!-- オンラインくじ20260731まで -->
 	<ins class="widget-banner"></ins><script
 		class="widget-banner-script"
-		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=860_300_250"
+		src="https://widget-view.dmm.co.jp/js/banner_placement.js?affiliate_id=honebuto-001&banner_id=1975_300_250"
 	></script>
 </div>
 
