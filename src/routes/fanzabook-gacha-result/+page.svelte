@@ -95,7 +95,7 @@
 					{#if products[0].is_sale}
 						<span class="font-bold text-red-500">【セール中】</span>
 					{/if}
-					{products[0].rarity || 'N'}:{products[0].title}
+					{products[0].rarity || 'N'}{#if products[0].rank} (人気{products[0].rank}位){/if}:{products[0].title}
 				</p>
 			</a>
 
@@ -186,7 +186,7 @@
 							{#if p.is_sale}
 								<span class="font-bold text-red-500">【セール中】</span>
 							{/if}
-							{p.rarity || 'N'}:{p.title}
+							{p.rarity || 'N'}{#if p.rank} (人気{p.rank}位){/if}:{p.title}
 						</p>
 					</a>
 

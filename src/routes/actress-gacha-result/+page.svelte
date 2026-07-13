@@ -218,6 +218,9 @@
 								{#if product.is_sale}
 									<span class="font-bold text-red-500">【セール中】</span>
 								{/if}
+								{#if product.rank}
+									<span class="text-gray-500">(人気{product.rank}位) </span>
+								{/if}
 								{product.title}
 							</p>
 
