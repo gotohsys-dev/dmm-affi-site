@@ -80,7 +80,7 @@
 						<span class="font-bold text-red-500">【セール中】</span>
 					{/if}
 					{videos[0].rarity}{#if videos[0].rank}
-						({videos[0].rank}位){/if}:{videos[0].title}
+						({videos[0].rank}位){:else}(ランク外){/if}:{videos[0].title}
 				</p>
 			</a>
 
@@ -144,7 +144,7 @@
 								<span class="font-bold text-red-500">【セール中】</span>
 							{/if}
 							{v.rarity}{#if v.rank}
-								({v.rank}位){/if}:{v.title}
+								({v.rank}位){:else}(ランク外){/if}:{v.title}
 						</p>
 					</a>
 

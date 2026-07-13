@@ -219,7 +219,7 @@
 									<span class="font-bold text-red-500">【セール中】</span>
 								{/if}
 								<span class="text-gray-500">
-									({#if product.rank}{product.rank}位{:else}ランク外{/if})
+									({#if product.rank}{product.rank}位{:else}(ランク外){/if})
 								</span>
 								{product.title}
 							</p>

@@ -93,7 +93,8 @@
 					{#if products[0].is_sale}
 						<span class="font-bold text-red-500">【セール中】</span>
 					{/if}
-					{products[0].rarity}({#if products[0].rank}{products[0].rank}位{:else}ランク外{/if}):{products[0].title}
+					{products[0].rarity}({#if products[0].rank}{products[0]
+							.rank}位{:else}(ランク外){/if}):{products[0].title}
 				</p>
 			</a>
 
@@ -180,7 +181,7 @@
 							{#if p.is_sale}
 								<span class="font-bold text-red-500">【セール中】</span>
 							{/if}
-							{p.rarity}({#if p.rank}{p.rank}位{:else}ランク外{/if}):{p.title}
+							{p.rarity}({#if p.rank}{p.rank}位{:else}(ランク外){/if}):{p.title}
 						</p>
 					</a>
 
