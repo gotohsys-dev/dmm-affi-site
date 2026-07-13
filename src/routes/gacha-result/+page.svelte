@@ -181,7 +181,7 @@
 							{#if p.is_sale}
 								<span class="font-bold text-red-500">【セール中】</span>
 							{/if}
-							{p.rarity}({#if p.rank}{p.rank}位{:else}(ランク外){/if}):{p.title}
+							{p.rarity}({#if p.rank}{p.rank}位{:else}ランク外{/if}):{p.title}
 						</p>
 					</a>
 
