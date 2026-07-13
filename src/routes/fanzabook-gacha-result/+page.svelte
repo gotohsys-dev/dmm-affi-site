@@ -188,7 +188,7 @@
 								<span class="font-bold text-red-500">【セール中】</span>
 							{/if}
 							{p.rarity || 'N'}{#if p.rank}
-								(人気{p.rank}位){/if}:{p.title}
+								({p.rank}位){/if}:{p.title}
 						</p>
 					</a>
 

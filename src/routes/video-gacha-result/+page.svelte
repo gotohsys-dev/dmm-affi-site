@@ -144,7 +144,7 @@
 								<span class="font-bold text-red-500">【セール中】</span>
 							{/if}
 							{v.rarity}{#if v.rank}
-								(人気{v.rank}位){/if}:{v.title}
+								({v.rank}位){/if}:{v.title}
 						</p>
 					</a>
 
