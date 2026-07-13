@@ -10,6 +10,7 @@
 	import { favoritesStore, toggleFavorite } from '$lib/favorites';
 
 	let products: any[] = [];
+	let recommendations: any[] = [];
 
 	const fetchProducts = async () => {
 		const { url } = get(page); // 現在のURLからbulkパラメータを判定
@@ -27,12 +28,30 @@
 		const res = await fetch(endpoint);
 		const data = await res.json();
 		products = Array.isArray(data) ? data : [data];
+
+		// 単発ガチャの場合に関連オススメ作品を取得
+		if (!isBulk && products[0]?.actresses) {
+			const firstActress = products[0].actresses.split(',')[0].trim();
+			if (firstActress) {
+				try {
+					const recRes = await fetch(`${PUBLIC_API_BASE}/actress/products/?name=${encodeURIComponent(firstActress)}`);
+					const recData = await recRes.json();
+					// 現在表示中の作品自身は除外し、最大5件表示に絞る
+					recommendations = recData
+						.filter((item: any) => item.affiliate_url !== products[0].affiliate_url)
+						.slice(0, 5);
+				} catch (err) {
+					console.error('オススメ情報の取得に失敗しました:', err);
+				}
+			}
+		}
 	};
 
 	onMount(fetchProducts);
 
 	const handleRetry = () => {
 		products = []; // ローディング表示に戻す
+		recommendations = [];
 		fetchProducts();
 	};
 
@@ -71,7 +90,7 @@
 		<span class="spinner">ガチャを回しています...</span>
 	</div>
 {:else if products.length === 1}
-	<div class="flex min-h-screen items-center justify-center">
+	<div class="flex min-h-screen flex-col items-center justify-center py-10">
 		<Card maxWidth="max-w-lg">
 			<h2 class="mb-4 text-2xl font-bold">🎯 ガチャ結果</h2>
 
@@ -155,6 +174,53 @@
 				</a>
 			</div>
 		</Card>
+
+		{#if recommendations.length > 0}
+			<div class="mt-12 w-full max-w-4xl px-4 text-white">
+				<h3 class="mb-6 text-center text-xl font-bold">
+					🎥 この作品に出演している「{products[0].actresses.split(',')[0]}」の他の作品
+				</h3>
+				<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
+					{#each recommendations as rec}
+						<div class="flex flex-col overflow-hidden rounded-lg border border-gray-700 bg-gray-800 shadow">
+							<a href={rec.affiliate_url} target="_blank" rel="sponsored" class="group relative">
+								<img
+									src={rec.image_url}
+									alt={rec.title}
+									class="h-36 w-full object-cover transition group-hover:opacity-90"
+								/>
+								<div class="absolute top-0 right-0 m-1">
+									<span class="rounded-full bg-gray-600 px-1.5 py-0.5 text-[9px] font-bold text-white">
+										{rec.rarity}
+									</span>
+								</div>
+							</a>
+							<div class="flex flex-grow flex-col justify-between p-2">
+								<p class="mb-1 h-8 line-clamp-2 text-[10px] text-gray-300 leading-tight">
+									{#if rec.is_sale}
+										<span class="font-bold text-red-500">【セール】</span>
+									{/if}
+									{#if rec.rank}
+										<span class="text-gray-400">({rec.rank}位) </span>
+									{:else}
+										<span class="text-gray-400">(ランク外) </span>
+									{/if}
+									{rec.title}
+								</p>
+								<a
+									href={rec.affiliate_url}
+									target="_blank"
+									rel="sponsored"
+									class="mt-2 block w-full rounded bg-pink-600 py-1 text-center text-[9px] font-bold text-white hover:bg-pink-700 transition"
+								>
+									作品を見る
+								</a>
+							</div>
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
 	</div>
 {:else}
 	<div class="min-h-screen bg-gradient-to-br from-gray-900 to-black py-10">
