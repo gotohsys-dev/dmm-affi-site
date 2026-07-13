@@ -94,7 +94,7 @@
 						<span class="font-bold text-red-500">【セール中】</span>
 					{/if}
 					{products[0].rarity || 'N'}{#if products[0].rank}
-						({products[0].rank}位){/if}:{products[0].title}
+						({products[0].rank}位){:else}ランク外{/if}:{products[0].title}
 				</p>
 			</a>
 
@@ -179,7 +179,8 @@
 								<span class="font-bold text-red-500">【セール中】</span>
 							{/if}
 							{p.rarity || 'N'}{#if p.rank}
-								({p.rank}位){/if}:{p.title}
+								({p.rank}位)
+							{:else}ランク外{/if}:{p.title}
 						</p>
 					</a>
 
