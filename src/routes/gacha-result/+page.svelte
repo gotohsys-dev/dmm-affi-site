@@ -34,7 +34,9 @@
 			const firstActress = products[0].actresses.split(',')[0].trim();
 			if (firstActress) {
 				try {
-					const recRes = await fetch(`${PUBLIC_API_BASE}/actress/products/?name=${encodeURIComponent(firstActress)}`);
+					const recRes = await fetch(
+						`${PUBLIC_API_BASE}/actress/products/?name=${encodeURIComponent(firstActress)}`
+					);
 					const recData = await recRes.json();
 					// 現在表示中の作品自身は除外し、最大5件表示に絞る
 					recommendations = recData
@@ -59,7 +61,7 @@
 		const displayTitle =
 			product.title.length > 80 ? product.title.substring(0, 80) + '...' : product.title;
 		const prefix = product.is_sale ? '【セール中】' : '';
-		return `${prefix}🎯 ガチャで「${displayTitle}」が当たったよ！ ${product.affiliate_url} 毎日エ〇ガチャhttps://dmm-affi-site.vercel.app/ #おすすめAV #推し女優 #FANZA`;
+		return `${prefix}🎯 ガチャで「${displayTitle}」が当たったよ！ ${product.affiliate_url} 毎日エ〇ガチャhttps://dmm-affi-site.vercel.app/ #おすすめAV #FANZA`;
 	};
 
 	const handleToggleFav = (product: any) => {
@@ -182,7 +184,9 @@
 				</h3>
 				<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
 					{#each recommendations as rec}
-						<div class="flex flex-col overflow-hidden rounded-lg border border-gray-700 bg-gray-800 shadow">
+						<div
+							class="flex flex-col overflow-hidden rounded-lg border border-gray-700 bg-gray-800 shadow"
+						>
 							<a href={rec.affiliate_url} target="_blank" rel="sponsored" class="group relative">
 								<img
 									src={rec.image_url}
@@ -190,13 +194,15 @@
 									class="h-36 w-full object-cover transition group-hover:opacity-90"
 								/>
 								<div class="absolute top-0 right-0 m-1">
-									<span class="rounded-full bg-gray-600 px-1.5 py-0.5 text-[9px] font-bold text-white">
+									<span
+										class="rounded-full bg-gray-600 px-1.5 py-0.5 text-[9px] font-bold text-white"
+									>
 										{rec.rarity}
 									</span>
 								</div>
 							</a>
 							<div class="flex flex-grow flex-col justify-between p-2">
-								<p class="mb-1 h-8 line-clamp-2 text-[10px] text-gray-300 leading-tight">
+								<p class="mb-1 line-clamp-2 h-8 text-[10px] leading-tight text-gray-300">
 									{#if rec.is_sale}
 										<span class="font-bold text-red-500">【セール】</span>
 									{/if}
@@ -211,7 +217,7 @@
 									href={rec.affiliate_url}
 									target="_blank"
 									rel="sponsored"
-									class="mt-2 block w-full rounded bg-pink-600 py-1 text-center text-[9px] font-bold text-white hover:bg-pink-700 transition"
+									class="mt-2 block w-full rounded bg-pink-600 py-1 text-center text-[9px] font-bold text-white transition hover:bg-pink-700"
 								>
 									作品を見る
 								</a>
